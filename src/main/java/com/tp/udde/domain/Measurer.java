@@ -1,51 +1,46 @@
 package com.tp.udde.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
-@Entity(name = "users")
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
+@Entity(name = "measurer")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @Builder
-public class Address {
+public class Measurer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_city")
-    private  City city;
+    @JoinColumn(name="id_measurement")
+    private Measurement measurement;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_measurer")
-    private  Measurer measurer;
+    @JoinColumn(name="id_model")
+    private Model model;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_user")
-    private User users;
-
-    @Column(name = "name")
-    private String name;
+    @JoinColumn(name="id_rate")
+    private Rate rate;
 
     @Column(name = "number")
     private int number;
 
-    @Column(name = "department")
-    private int department;
-
-
+    @Column(name = "kw")
+    private float kw;
 
 
 
