@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: devh2
+  application:
+    name: udde

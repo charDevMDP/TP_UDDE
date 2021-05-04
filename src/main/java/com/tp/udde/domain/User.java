@@ -5,12 +5,12 @@ import lombok.*;
 import org.springframework.lang.Nullable;
 import javax.persistence.*;
 
-@Entity(name = "users")
+@Entity(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
-@Builder
+//@Builder
 public class User {
 
     @Id
