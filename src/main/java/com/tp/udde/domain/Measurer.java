@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "measurer")
+@Entity(name = "measurers")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

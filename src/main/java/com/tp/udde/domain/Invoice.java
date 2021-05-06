@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Entity(name = "invoice")
+@Entity(name = "invoices")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
