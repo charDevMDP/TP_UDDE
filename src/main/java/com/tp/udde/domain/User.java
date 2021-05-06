@@ -5,12 +5,12 @@ import lombok.*;
 import org.springframework.lang.Nullable;
 import javax.persistence.*;
 
-@Entity(name = "user")
+@Entity(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
-//@Builder
+@Builder
 public class User {
 
     @Id
@@ -38,7 +38,7 @@ public class User {
     @Column(name = "email",nullable = false,unique = true)
     private String email;
 
-    @Column(name = "userType", columnDefinition = "varchar(20) default 'CUSTOMER'")
+    @Column(name = "user_type", columnDefinition = "varchar(20) default 'CLIENT'")
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
 }

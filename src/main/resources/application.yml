@@ -23,13 +23,14 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/uddedb
     username: root
-    password: passmysql
+    password:
   application:
     name: udde-devmysql
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+    show-sql: true
 
   config:
     activate:
