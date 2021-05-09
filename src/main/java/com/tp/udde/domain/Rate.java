@@ -23,9 +23,6 @@ public class Rate {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "value")
-    private Double value;
-
     @Column(name = "price")
     private Float price;
 }

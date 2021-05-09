@@ -25,8 +25,8 @@ public class Invoice {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_address")
-    private Address address;
+    @JoinColumn(name="id_meters")
+    private Meters meters;
 
     @Column(name = "date_invoice")
     private Date dateInvoice;

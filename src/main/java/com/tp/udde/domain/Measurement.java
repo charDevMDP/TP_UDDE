@@ -27,4 +27,8 @@ public class Measurement {
 
     @Column(name = "value")
     private Double value;
+
+    @Column(name = "kwh")
+    private float kwh;
+
 }

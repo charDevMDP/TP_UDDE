@@ -8,13 +8,13 @@ import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "measurers")
+@Entity(name = "meters")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @Builder
-public class Measurer {
+public class Meters {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,6 +28,11 @@ public class Measurer {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
+    @JoinColumn(name="id_address")
+    private Address address;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name="id_model")
     private Model model;
 
@@ -38,11 +43,5 @@ public class Measurer {
 
     @Column(name = "number")
     private int number;
-
-    @Column(name = "kw")
-    private float kw;
-
-
-
 
 }

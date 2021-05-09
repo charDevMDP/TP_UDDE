@@ -26,10 +26,6 @@ public class Address {
     @JoinColumn(name="id_city")
     private  City city;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name="id_measurer")
-    private  Measurer measurer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="id_user")
