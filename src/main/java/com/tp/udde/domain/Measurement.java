@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Entity(name = "measurement")
+@Entity(name = "measurements")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -27,4 +27,8 @@ public class Measurement {
 
     @Column(name = "value")
     private Double value;
+
+    @Column(name = "kwh")
+    private float kwh;
+
 }

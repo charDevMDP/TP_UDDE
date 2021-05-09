@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "rate")
+@Entity(name = "rates")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -22,9 +22,6 @@ public class Rate {
 
     @Column(name = "type")
     private String type;
-
-    @Column(name = "value")
-    private Double value;
 
     @Column(name = "price")
     private Float price;

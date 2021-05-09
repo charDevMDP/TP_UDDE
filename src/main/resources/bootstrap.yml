@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: devmysql
+  application:
+    name: udde

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity(name = "users")
+@Entity(name = "addresses")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -26,15 +26,11 @@ public class Address {
     @JoinColumn(name="id_city")
     private  City city;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name="id_measurer")
-    private  Measurer measurer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value="id_user")
     @JoinColumn(name="id_user")
-    private User users;
+    private User user;
 
     @Column(name = "name")
     private String name;
@@ -44,10 +40,5 @@ public class Address {
 
     @Column(name = "department")
     private int department;
-
-
-
-
-
 
 }
