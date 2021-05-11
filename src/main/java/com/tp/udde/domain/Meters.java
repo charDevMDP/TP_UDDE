@@ -23,11 +23,6 @@ public class Meters {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_measurement")
-    private Measurement measurement;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
     @JoinColumn(name="id_address")
     private Address address;
 
