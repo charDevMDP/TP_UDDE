@@ -22,13 +22,16 @@ public class Measurement {
     @Column(name = "id", unique = true)
     private Integer id;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "value")
-    private Double value;
+    @Column(name = "invoiced")
+    private boolean invoiced;
 
-    @Column(name = "kwh")
+    @Column(name = "id_invoice")
+    private int idInvoice;
+
+    @Column(name = "kwh", nullable = false)
     private float kwh;
 
 }

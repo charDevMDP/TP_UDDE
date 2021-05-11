@@ -26,7 +26,6 @@ public class Address {
     @JoinColumn(name="id_city")
     private  City city;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="id_user")
     @JoinColumn(name="id_user")
@@ -40,5 +39,4 @@ public class Address {
 
     @Column(name = "department")
     private int department;
-
 }

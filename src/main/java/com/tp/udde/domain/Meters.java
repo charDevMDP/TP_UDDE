@@ -41,7 +41,7 @@ public class Meters {
     @JoinColumn(name="id_rate")
     private Rate rate;
 
-    @Column(name = "number")
+    @Column(name = "number", unique = true)
     private int number;
 
 }

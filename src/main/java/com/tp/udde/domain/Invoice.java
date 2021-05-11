@@ -3,6 +3,7 @@ package com.tp.udde.domain;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.tp.udde.domain.enums.InvoiceStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
@@ -28,22 +29,25 @@ public class Invoice {
     @JoinColumn(name="id_meters")
     private Meters meters;
 
-    @Column(name = "date_invoice")
+    @Column(name = "date_invoice", nullable = false)
     private Date dateInvoice;
 
-    @Column(name = "date_initial")
+    @Column(name = "date_initial", nullable = false)
     private Date dateInitial;
 
-    @Column(name = "date_end")
+    @Column(name = "date_end", nullable = false)
     private Date dateEnd;
 
-    @Column(name = "consumer_kw")
+    @Column(name = "consumer_kw", nullable = false)
     private float consumerKw;
 
-    @Column(name = "number")
+    @Column(name = "number", nullable = false)
     private int number;
 
-    @Column(name = "total")
+    @Column(name = "invoice_status", columnDefinition = "varchar(20) default 'OWED'")
+    private InvoiceStatus invoiceStatus;
+
+    @Column(name = "total", nullable = false)
     private float total;
 
 }
