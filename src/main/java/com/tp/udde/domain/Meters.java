@@ -39,4 +39,7 @@ public class Meters {
     @Column(name = "number", unique = true)
     private int number;
 
+    @Column(name = "password", nullable = false)
+    private String password;
+
 }
