@@ -4,6 +4,7 @@ import com.tp.udde.domain.Invoice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -46,5 +47,18 @@ public class InvoiceController {
     public void deleteById(@PathVariable Integer id) {
         invoiceService.deleteById(id);
     }
+
+    // traigo las facturas de entre fechas
+    @GetMapping("/data")
+    public List<Invoice> getInvoiceBetweenDates(@RequestParam Integer userId, @RequestParam LocalDate initialDate,@RequestParam LocalDate endDate){
+        return invoiceService.getInvoiceBetweenDates(userId,initialDate,endDate);
+    }
+
+    // traigo las facturas adeudadas
+    @GetMapping("/owed")
+    public List<Invoice> getInvoicesOwed(@RequestParam Integer userId){
+        return  this.invoiceService.getInvoicesOwed(userId);
+    }
+
 
 }

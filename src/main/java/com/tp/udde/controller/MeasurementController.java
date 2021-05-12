@@ -1,9 +1,11 @@
 package com.tp.udde.controller;
 
+import com.tp.udde.domain.Invoice;
 import com.tp.udde.domain.Measurement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -47,4 +49,9 @@ public class MeasurementController {
         measurementService.deleteById(id);
     }
 
+    // traigo las mediciones de entre fechas
+    @GetMapping("/data")
+    public List<Measurement> getMeasurementBetweenDates(@RequestParam Integer user_id, @RequestParam LocalDate initialDate, @RequestParam LocalDate endDate){
+        return measurementService.getMeasurementByDates(user_id, initialDate,endDate);
+    }
 }
