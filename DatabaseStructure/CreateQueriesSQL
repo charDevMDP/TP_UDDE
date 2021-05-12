@@ -1,0 +1,104 @@
+CREATE DATABASE uddedb;
+
+CREATE TABLE cities (
+      id int(11) NOT NULL AUTO_INCREMENT,
+      name varchar(255) NOT NULL,
+      PRIMARY KEY (id));
+
+CREATE TABLE users (
+      id int(11) NOT NULL AUTO_INCREMENT,
+      dni varchar(255) NOT NULL,
+      email varchar(255) NOT NULL,
+      name varchar(255) NOT NULL,
+      password varchar(255) NOT NULL,
+      surname varchar(255) NOT NULL,
+      user_type varchar(20) DEFAULT 'CLIENT',
+      PRIMARY KEY (id),
+      UNIQUE KEY UK_6aphui3g30h49muho4c91n0yl (dni),
+      UNIQUE KEY UK_6dotkott2kjsp8vw4d0m25fb7 (email));
+
+CREATE TABLE addresses(
+       id int(11) NOT NULL AUTO_INCREMENT,
+       department int(11) DEFAULT NULL,
+       name varchar(255) DEFAULT NULL,
+       number int(11) DEFAULT NULL,
+       id_city int(11) DEFAULT NULL,
+       id_user int(11) DEFAULT NULL,
+       PRIMARY KEY (id),
+       KEY FKe2rh8bor8fodhekygtn3dnsi4 (id_city),
+       KEY FKb7vjjamtk9m96ukh4dyr2gwwl (id_user),
+       CONSTRAINT FKb7vjjamtk9m96ukh4dyr2gwwl FOREIGN KEY (id_user) REFERENCES users (id),
+       CONSTRAINT FKe2rh8bor8fodhekygtn3dnsi4 FOREIGN KEY (id_city) REFERENCES cities (id));
+
+ CREATE TABLE brands (
+       id int(11) NOT NULL,
+       name varchar(255) DEFAULT NULL,
+       type varchar(255) DEFAULT NULL,
+       PRIMARY KEY (`id`));
+
+CREATE TABLE models (
+       id int(11) NOT NULL,
+       name varchar(255) DEFAULT NULL,
+       type varchar(255) DEFAULT NULL,
+       id_brand int(11) DEFAULT NULL,
+       PRIMARY KEY (id),
+       KEY FKk5e4krkr54bojmtd1uk3u04ct (id_brand),
+       CONSTRAINT FKk5e4krkr54bojmtd1uk3u04ct FOREIGN KEY (id_brand) REFERENCES brands (id));
+
+CREATE TABLE rates (
+       id int(11) NOT NULL,
+       price float NOT NULL,
+       type varchar(255) NOT NULL,
+       PRIMARY KEY (id));
+
+CREATE TABLE meters (
+        id int(11) NOT NULL,
+        number int(11) DEFAULT NULL,
+        password varchar(255) NOT NULL,
+        id_address int(11) DEFAULT NULL,
+        id_model int(11) DEFAULT NULL,
+        id_rate int(11) DEFAULT NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE KEY UK_ljfo5946ffhw1ts5795gsjnr9 (number),
+        KEY FKscaf1sro9xc53bpf0yq1c7xii (id_address),
+        KEY FK8fuwa145vlybonuuri0kn5om4 (id_model),
+        KEY FKh0pos5axukdnwwdda92ii0jse (id_rate),
+        CONSTRAINT `FK8fuwa145vlybonuuri0kn5om4` FOREIGN KEY (id_model) REFERENCES models (id),
+        CONSTRAINT `FKh0pos5axukdnwwdda92ii0jse` FOREIGN KEY (id_rate) REFERENCES rates (id),
+        CONSTRAINT `FKscaf1sro9xc53bpf0yq1c7xii` FOREIGN KEY (id_address) REFERENCES addresses (id));
+
+CREATE TABLE invoices (
+        id int(11) NOT NULL,
+        consumer_kw float NOT NULL,
+        date_end datetime NOT NULL,
+        date_initial datetime NOT NULL,
+        date_invoice datetime NOT NULL,
+        invoice_status varchar(20) DEFAULT 'OWED',
+        number int(11) NOT NULL,
+        total float NOT NULL,
+        id_meters int(11) DEFAULT NULL,
+        PRIMARY KEY (id),
+        KEY FKl37xvyen3d7b0rn402v5jtnep (id_meters),
+        CONSTRAINT `FKl37xvyen3d7b0rn402v5jtnep` FOREIGN KEY (id_meters) REFERENCES meters (id));
+
+CREATE TABLE measurements (
+        id int(11) NOT NULL,
+        date datetime NOT NULL,
+        id_invoice int(11) DEFAULT NULL,
+        invoiced bit(1) DEFAULT NULL,
+        kwh float NOT NULL,
+        PRIMARY KEY (id));
+
+CREATE TABLE meters_for_measurement (
+        id int(11) NOT NULL,
+        id_measurement int(11) DEFAULT NULL,
+        id_meters int(11) DEFAULT NULL,
+        PRIMARY KEY (id),
+        KEY FKlor56eu3n61pvir7r2foaegf6 (id_measurement),
+        KEY FKad7rm82rxycx91sb6sthky5lx (id_meters),
+        CONSTRAINT FKad7rm82rxycx91sb6sthky5lx FOREIGN KEY (id_meters) REFERENCES meters (id),
+        CONSTRAINT FKlor56eu3n61pvir7r2foaegf6 FOREIGN KEY (id_measurement) REFERENCES measurements (id));
+
+
+
+
