@@ -55,7 +55,6 @@ CREATE TABLE meters (
         id_address int UNSIGNED,
         id_model int UNSIGNED,
         id_rate int UNSIGNED,
-        pass varchar(255),
         CONSTRAINT pk_id_meters PRIMARY KEY (`id`),
         CONSTRAINT UNIQUE unq_number (number),
         CONSTRAINT fk_id_models FOREIGN KEY (id_model) REFERENCES models (id),
@@ -79,7 +78,6 @@ CREATE TABLE measurements (
         id int UNSIGNED AUTO_INCREMENT,
         date datetime NOT NULL,
         id_invoice int UNSIGNED,
-        invoiced bit(1) DEFAULT NULL,
         kwh float NOT NULL,
         CONSTRAINT pk_id_measurements PRIMARY KEY (id));
 
