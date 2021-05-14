@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.tp.udde.service.MeasurementService;
@@ -50,8 +51,10 @@ public class MeasurementController {
     }
 
     // traigo las mediciones de entre fechas
-    @GetMapping("/data")
-    public List<Measurement> getMeasurementBetweenDates(@RequestParam Integer user_id, @RequestParam LocalDate initialDate, @RequestParam LocalDate endDate){
+    @GetMapping("/data/{id}")
+    public List<Measurement> getMeasurementBetweenDates(@PathVariable Integer user_id,
+                                                        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate initialDate,
+                                                        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate endDate){
         return measurementService.getMeasurementByDates(user_id, initialDate,endDate);
     }
 }
