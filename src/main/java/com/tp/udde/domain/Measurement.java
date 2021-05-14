@@ -25,9 +25,6 @@ public class Measurement {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "invoiced")
-    private boolean invoiced;
-
     @Column(name = "id_invoice")
     private int idInvoice;
 
