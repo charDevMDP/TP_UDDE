@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface MeasurementRepository extends JpaRepository<Measurement, Integer> {
 
-    @Query(value = "SELECT FROM * USER u inner join ADDRESS a on u.id = a.id_user "+
-            "inner join METERS m on a.id = m.id_address"+
-            "inner join METERS_FOR_MEASUREMENT mm on m.id = mm.id_meters" +
-            "inner join MEASUREMENT mt on mm.id = mt.id_meters_for_measurement" +
-            "WHERE u.id = ?1", nativeQuery = true) // TODO ver query
-    List<Measurement> getMeasurementForDate(Integer userId, LocalDate startDate, LocalDate endDate);
+    @Query(value = "SELECT mt.date as DATA, mt.kwh as KWH FROM  users us "+
+            "inner join addresses ad on ad.id_user = us.id" +
+            " inner join meters me on me.id_address = ad.id"+
+            "inner join meters_for_measurement mm on me.id = mm.id_meters"+
+            "inner join measurements mt on mm.id_meters = mt.id WHERE us.id = ?1;", nativeQuery = true)
+    List<Measurement> getMeasurementForDate(Integer userId, String startDate, String endDate);
 }

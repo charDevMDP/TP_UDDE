@@ -1,6 +1,7 @@
 package com.tp.udde.service;
 
 import com.tp.udde.domain.Invoice;
+import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -49,7 +50,7 @@ public class MeasurementService {
         }
     }
 
-    public List<Measurement> getMeasurementByDates(Integer userId, LocalDate startDate, LocalDate endDate){
+    public List<Measurement> getMeasurementByDates(Integer userId, String startDate, String endDate){
         return measurementRepository.getMeasurementForDate(userId,startDate,endDate);
     }
 }
