@@ -1,11 +1,14 @@
 package com.tp.udde.service;
 
+import com.tp.udde.domain.Invoice;
+import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +48,9 @@ public class MeasurementService {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    public List<Measurement> getMeasurementByDates(Integer userId, String startDate, String endDate){
+        return measurementRepository.getMeasurementForDate(userId,startDate,endDate);
     }
 }
