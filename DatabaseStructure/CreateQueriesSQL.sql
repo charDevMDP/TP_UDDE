@@ -90,5 +90,5 @@ CREATE TABLE meters_for_measurement (
         CONSTRAINT fk_id_measurement FOREIGN KEY (id_measurement) REFERENCES measurements (id));
 
 
-
+INSERT INTO brands (name, type) VALUES ("BAW", "220V"), ("Jieli","220V");
 

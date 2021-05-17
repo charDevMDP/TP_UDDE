@@ -23,12 +23,12 @@ public class Address {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_city")
+    @JoinColumn(name="id_city",foreignKey = @ForeignKey(name = "id"))
     private  City city;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="id_user")
-    @JoinColumn(name="id_user")
+    @JoinColumn(name="id_user",foreignKey = @ForeignKey(name = "id"))
     private User user;
 
     @Column(name = "name")
