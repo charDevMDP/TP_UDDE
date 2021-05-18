@@ -23,7 +23,7 @@ public class Model {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_brand",foreignKey = @ForeignKey(name = "id"))
+    @JoinColumn(name="id_brand",foreignKey = @ForeignKey(name = "id_brand"))
     private Brand brand;
 
     @Column(name = "name")

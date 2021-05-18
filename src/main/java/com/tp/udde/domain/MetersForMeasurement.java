@@ -23,11 +23,11 @@ public class MetersForMeasurement {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="id_meters")
-    @JoinColumn(name="id_meters",foreignKey = @ForeignKey(name = "id"))
+    @JoinColumn(name="id_meters",foreignKey = @ForeignKey(name = "id_meters_mfm"))
     private Meters meters;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="id_measurement")
-    @JoinColumn(name="id_measurement",foreignKey = @ForeignKey(name = "id"))
+    @JoinColumn(name="id_measurement",foreignKey = @ForeignKey(name = "id_measurement_mfm"))
     private Measurement measurement;
 }

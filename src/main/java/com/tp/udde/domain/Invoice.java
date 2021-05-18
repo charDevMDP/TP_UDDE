@@ -26,7 +26,7 @@ public class Invoice {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_meters",foreignKey = @ForeignKey(name = "id"))
+    @JoinColumn(name="id_meters",foreignKey = @ForeignKey(name = "id_meters_invoices"))
     private Meters meters;
 
     @Column(name = "date_invoice", nullable = false)
