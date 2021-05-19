@@ -93,3 +93,7 @@ CREATE TABLE meters_for_measurement (
 INSERT INTO brands (name, type) VALUES ("BAW", "220V"), ("Jieli","220V");
 /*models*/
 INSERT INTO models (id_brand,name,type) VALUES (2,"Corp","posuere"),(1,"LLP","orci"),(2,"Tincidunt","velit."),(2,"Incorporated","odio."),(2,"Per","volutpat"),(1,"Lobortis","facilisis."),(1,"Quis Corp.","Donec"),(1,"Velit Inc.","lacus."),(1,"Malesuada","Cras"),(2,"Ut Nisi","pede");
+/*cities*/
+INSERT INTO cities (name) VALUES ("Buenos Aires"),("Córdoba"),("Rosario"),("Mar del Plata"),("San Miguel de Tucumán"),("Salta"),("Santa Fe"),("Corrientes"),("Bahía Blanca"),("Resistencia"),("Posadas"),("Merlo"),("Quilmes"),("San Salvador de Jujuy"),("Guaymallén"),
+("Santiago del Estero"),("Gregorio de Laferrere"),("José C. Paz"),("Paraná"),("Banfield"),("González Catán"),("Neuquén"),("Formosa"),("Lanús"),("La Plata"),("Godoy Cruz"),("Isidro Casanova"),("Las Heras"),("Berazategui"),("La Rioja"),("Comodoro Rivadavia"),("Moreno"),("San Luis"),("San Miguel"),("San Fernando del Valle de Catamarca"),("Río Cuarto"),("Virrey del Pino");
+
