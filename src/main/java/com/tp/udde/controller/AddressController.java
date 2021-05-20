@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.tp.udde.service.AddressService;
 
-@RestController
-@RequestMapping("/address")
+@Controller
 public class AddressController {
 
     @Autowired

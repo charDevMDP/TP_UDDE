@@ -7,16 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.tp.udde.service.MeasurementService;
 
-@RestController
-@RequestMapping("/measurement")
+@Controller
 public class MeasurementController {
 
     @Autowired
     MeasurementService measurementService;
-
+    /*
     // agrego uno
     @PostMapping
     public Measurement addMeasurement(@RequestBody Measurement measurement) {
@@ -46,5 +46,5 @@ public class MeasurementController {
     public void deleteById(@PathVariable Integer id) {
         measurementService.deleteById(id);
     }
-
+*/
 }

@@ -7,16 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.tp.udde.service.BrandService;
 
-@RestController
-@RequestMapping("/brand")
+@Controller
 public class BrandController {
 
     @Autowired
     BrandService brandService;
 
+    /*
     // agrego uno
     @PostMapping
     public Brand addBrand(@RequestBody Brand brand) {
@@ -45,6 +46,6 @@ public class BrandController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Integer id) {
         brandService.deleteById(id);
-    }
+    }*/
 
 }

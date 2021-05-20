@@ -7,16 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.tp.udde.service.InvoiceService;
 
-@RestController
-@RequestMapping("/invoice")
+@Controller
 public class InvoiceController {
 
     @Autowired
     InvoiceService invoiceService;
-
+    /*
     // agrego uno
     @PostMapping
     public Invoice addInvoice(@RequestBody Invoice invoice) {
@@ -46,5 +46,5 @@ public class InvoiceController {
     public void deleteById(@PathVariable Integer id) {
         invoiceService.deleteById(id);
     }
-
+    */
 }
