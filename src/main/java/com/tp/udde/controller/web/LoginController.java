@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value = "/")
 public class LoginController {
 
    private final ObjectMapper objectMapper;
@@ -41,16 +42,23 @@ public class LoginController {
     }
 
     @PostMapping(value = "login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<LoginResponseDto>login(@RequestBody LoginRequestDto loginRequestDto) {
+        System.out.println( "Hola mundo..." );
         log.info(loginRequestDto.toString());
         User user = userController.login(loginRequestDto.getSurname(), loginRequestDto.getPassword());
+        System.out.println( "Hola mundo..." );
         if (user!=null){
-            System.out.println( "Hola mundo..." );
+            System.out.println( "Hola mundo.sssssss.." );
             UserDto dto = modelMapper.map(user, UserDto.class);
             return ResponseEntity.ok(LoginResponseDto.builder().token(this.generateToken(dto)).build());
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+
+    @GetMapping(value = "/userDetails")
+    public ResponseEntity<User> userDetails(Authentication auth) {
+        return ResponseEntity.ok((User) auth.getPrincipal());
     }
 
     private String generateToken(UserDto userDto) {
