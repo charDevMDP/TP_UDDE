@@ -43,12 +43,9 @@ public class LoginController {
 
     @PostMapping(value = "login")
     public ResponseEntity<LoginResponseDto>login(@RequestBody LoginRequestDto loginRequestDto) {
-        System.out.println( "Hola mundo..." );
         log.info(loginRequestDto.toString());
         User user = userController.login(loginRequestDto.getSurname(), loginRequestDto.getPassword());
-        System.out.println( "Hola mundo..." );
         if (user!=null){
-            System.out.println( "Hola mundo.sssssss.." );
             UserDto dto = modelMapper.map(user, UserDto.class);
             return ResponseEntity.ok(LoginResponseDto.builder().token(this.generateToken(dto)).build());
         } else {
