@@ -46,5 +46,13 @@ public class MeasurementController {
     public void deleteById(@PathVariable Integer id) {
         measurementService.deleteById(id);
     }
+
+        // traigo las mediciones de entre fechas
+    @GetMapping("/data/{id}/{firstDate}/{secondDate}")
+    public List<Measurement> getMeasurementBetweenDates(@PathVariable Integer user_id,
+                                                        @PathVariable(value = "firstDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String firstDate,
+                                                        @PathVariable(value = "secondDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String secondDate){
+        return measurementService.getMeasurementByDates(user_id,firstDate,secondDate);
+    }
 */
 }

@@ -74,8 +74,5 @@ public class LoginController {
         } catch(Exception e) {
             return "dummy";
         }
-
-
-
     }
 }
