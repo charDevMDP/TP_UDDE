@@ -7,16 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.tp.udde.service.RateService;
 
-@RestController
-@RequestMapping("/rate")
+@Controller
 public class RateController {
 
     @Autowired
     RateService rateService;
-
+/*
     // agrego uno
     @PostMapping
     public Rate addRate(@RequestBody Rate rate) {
@@ -46,5 +46,5 @@ public class RateController {
     public void deleteById(@PathVariable Integer id) {
         rateService.deleteById(id);
     }
-
+*/
 }

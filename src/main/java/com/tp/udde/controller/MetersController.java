@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.tp.udde.service.MetersService;
 
-@RestController
-@RequestMapping("/measurer")
+@Controller
 public class MetersController {
 
     @Autowired
     MetersService metersService;
-
+/*
     // agrego uno
     @PostMapping
     public Meters addMeasurer(@RequestBody Meters meters) {
@@ -45,5 +45,5 @@ public class MetersController {
     public void deleteById(@PathVariable Integer id) {
         metersService.deleteById(id);
     }
-
+*/
 }

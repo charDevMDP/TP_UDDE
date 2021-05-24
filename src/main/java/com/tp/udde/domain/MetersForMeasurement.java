@@ -8,13 +8,13 @@ import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "models")
+@Entity(name = "meters_for_measurement")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @Builder
-public class Model {
+public class MetersForMeasurement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,16 +22,12 @@ public class Model {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name="id_brand",foreignKey = @ForeignKey(name = "id_brand"))
-    private Brand brand;
+    @JsonBackReference(value="id_meters")
+    @JoinColumn(name="id_meters",foreignKey = @ForeignKey(name = "id_meters_mfm"))
+    private Meters meters;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "type")
-    private String type;
-
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value="id_measurement")
+    @JoinColumn(name="id_measurement",foreignKey = @ForeignKey(name = "id_measurement_mfm"))
+    private Measurement measurement;
 }

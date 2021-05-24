@@ -22,8 +22,12 @@ public class UserService {
 
 
     public List<User> getAll() {
-        List<User> users = userRepository.findAll();
+        List<User> users = (List<User>) userRepository.findAll();
         return users;
+    }
+
+    public User login(String surname, String password) {
+        return userRepository.getByUsername(surname, password);
     }
 
     public void deleteById(Integer id) {

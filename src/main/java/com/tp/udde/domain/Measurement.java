@@ -18,17 +18,17 @@ import java.util.Date;
 public class Measurement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private Integer id;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "value")
-    private Double value;
+    @Column(name = "id_invoice")
+    private int idInvoice;
 
-    @Column(name = "kwh")
+    @Column(name = "kwh", nullable = false)
     private float kwh;
 
 }

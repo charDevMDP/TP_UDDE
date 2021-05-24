@@ -1,7 +1,6 @@
 package com.tp.udde.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
@@ -9,7 +8,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.tp.udde.domain.Address;
 import com.tp.udde.repository.AddressRepository;
@@ -21,8 +19,8 @@ public class AddressService {
     private AddressRepository addressRepository;
 
     public List<Address> getAll() {
-        List<Address> addresss = addressRepository.findAll();
-        return addresss;
+        List<Address> address = addressRepository.findAll();
+        return address;
     }
 
     public void deleteById(Integer id) {
