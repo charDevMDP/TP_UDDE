@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 public class Model {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_brand")
+    @JoinColumn(name="id_brand",foreignKey = @ForeignKey(name = "id_brand"))
     private Brand brand;
 
     @Column(name = "name")

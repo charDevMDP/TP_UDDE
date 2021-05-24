@@ -7,16 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.tp.udde.service.CityService;
 
-@RestController
-@RequestMapping("/city")
+@Controller
 public class CityController {
 
     @Autowired
     CityService cityService;
-
+    /*
     // agrego uno
     @PostMapping
     public City addCity(@RequestBody City city) {
@@ -45,6 +45,6 @@ public class CityController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Integer id) {
         cityService.deleteById(id);
-    }
+    }*/
 
 }

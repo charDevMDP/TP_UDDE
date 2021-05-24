@@ -7,16 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.tp.udde.service.ModelService;
 
-@RestController
-@RequestMapping("/model")
+@Controller
 public class ModelController {
 
     @Autowired
     ModelService modelService;
-
+/*
     // agrego uno
     @PostMapping
     public Model addModel(@RequestBody Model model) {
@@ -46,5 +46,5 @@ public class ModelController {
     public void deleteById(@PathVariable Integer id) {
         modelService.deleteById(id);
     }
-
+*/
 }

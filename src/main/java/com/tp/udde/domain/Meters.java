@@ -17,23 +17,23 @@ import lombok.NoArgsConstructor;
 public class Meters {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_address")
+    @JoinColumn(name="id_address",foreignKey = @ForeignKey(name = "id_address"))
     private Address address;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_model")
+    @JoinColumn(name="id_model",foreignKey = @ForeignKey(name = "id_model"))
     private Model model;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_rate")
+    @JoinColumn(name="id_rate",foreignKey = @ForeignKey(name = "id_rate"))
     private Rate rate;
 
     @Column(name = "number", unique = true)

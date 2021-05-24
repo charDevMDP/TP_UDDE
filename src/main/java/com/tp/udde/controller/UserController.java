@@ -2,20 +2,19 @@ package com.tp.udde.controller;
 
 import com.tp.udde.domain.User;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+
 import com.tp.udde.service.UserService;
 
-@RestController
-@RequestMapping("/user")
+@Controller
 public class UserController {
 
     @Autowired
     UserService userService;
-
+    /*
     // agrego uno
     @PostMapping
     public User addUser(@RequestBody User user) {
@@ -44,6 +43,11 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Integer id) {
         userService.deleteById(id);
+    }*/
+
+
+    public User login(String surname, String password) {
+        return userService.login(surname, password);
     }
 
 }

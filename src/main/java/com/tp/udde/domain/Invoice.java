@@ -20,13 +20,13 @@ import java.util.Date;
 public class Invoice {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="id_meters")
+    @JoinColumn(name="id_meters",foreignKey = @ForeignKey(name = "id_meters_invoices"))
     private Meters meters;
 
     @Column(name = "id_user", nullable = false)
