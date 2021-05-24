@@ -29,6 +29,9 @@ public class Invoice {
     @JoinColumn(name="id_meters",foreignKey = @ForeignKey(name = "id_meters_invoices"))
     private Meters meters;
 
+    @Column(name = "id_user", nullable = false)
+    private Integer idUser;
+
     @Column(name = "date_invoice", nullable = false)
     private Date dateInvoice;
 

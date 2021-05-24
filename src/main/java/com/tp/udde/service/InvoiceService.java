@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,4 +47,13 @@ public class InvoiceService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+    public List<Invoice> getInvoiceBetweenDates(Integer userId, LocalDate startDate, LocalDate endDate){
+        return invoiceRepository.findInvoiceBetweenDates(userId, startDate,endDate);
+    }
+
+    public List<Invoice> getInvoicesOwed(Integer userId){
+        return invoiceRepository.getInvoicesOwed(userId);
+    }
+
 }
