@@ -1,27 +1,41 @@
 package com.tp.udde.session;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tp.udde.domain.User;
+import com.tp.udde.domain.dto.UserDto;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.tp.udde.utils.Constants.JWT_SECRET;
+
 
 @Component
 public class SessionManager {
 
+    private final ObjectMapper objectMapper;
+    private final ModelMapper modelMapper;
     Map<String, Session> sessionMap;
     int sessionExpiration = 600000;
 
 
-    public SessionManager() {
+    public SessionManager(ObjectMapper objectMapper, ModelMapper modelMapper) {
+        this.objectMapper = objectMapper;
+        this.modelMapper = modelMapper;
         sessionMap = new Hashtable<>();
     }
 
     public String createSession(User user) {
-        String token = UUID.randomUUID().toString();
-        sessionMap.put(token, new Session(token, user, new Date(System.currentTimeMillis())));
+        UserDto dto = modelMapper.map(user, UserDto.class);
+        String token  = generateToken(dto);
+        this.sessionMap.put(token , new Session(token , user, new Date(System.currentTimeMillis())));
         return token;
     }
 
@@ -42,27 +56,34 @@ public class SessionManager {
     }
 
     public boolean userIsLogged(User user){
-
         for (Session session : sessionMap.values()){
-            if(session.getLoggedUser().getId() == user.getId()){
+            if(session.getLoggedUser().getId() == user.getId())
+            {
                 return true;
             }
         }
-
         return false;
     }
 
-    public void removeSession(String token) {
-        sessionMap.remove(token);
+    public void removeSession(Authentication auth) {
+        sessionMap.remove(auth);
     }
 
-    public void expireSessions() {
-        for (String k : sessionMap.keySet()) {
-            Session v = sessionMap.get(k);
-            if (v.getLastAction().getTime() + (sessionExpiration * 1000) < System.currentTimeMillis()) {
-                System.out.println("Expiring session " + k);
-                sessionMap.remove(k);
-            }
+    public String generateToken(UserDto userDto) {
+        try {
+            List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("CLIENT");
+            String token = Jwts
+                    .builder()
+                    .setId("JWT")
+                    .setSubject(userDto.getSurname())
+                    .claim("user", objectMapper.writeValueAsString(userDto))
+                    .claim("authorities",grantedAuthorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                    .setIssuedAt(new Date(System.currentTimeMillis()))
+                    .setExpiration(new Date(System.currentTimeMillis() + 1000))
+                    .signWith(SignatureAlgorithm.HS512, JWT_SECRET.getBytes()).compact();
+            return  token;
+        } catch(Exception e) {
+            return "dummy";
         }
     }
 

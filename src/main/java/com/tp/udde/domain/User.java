@@ -1,5 +1,6 @@
 package com.tp.udde.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tp.udde.domain.enums.UserType;
 import lombok.*;
 import org.springframework.lang.Nullable;
@@ -31,6 +32,7 @@ public class User {
     private String dni;
 
     @NonNull
+    @JsonIgnore
     @Column(name = "password",nullable = false)
     private String password;
 
@@ -41,4 +43,5 @@ public class User {
     @Column(name = "user_type", columnDefinition = "varchar(20) default 'CLIENT'")
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
+
 }

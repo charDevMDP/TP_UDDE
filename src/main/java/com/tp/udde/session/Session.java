@@ -1,33 +1,31 @@
 package com.tp.udde.session;
 
 import com.tp.udde.domain.User;
+import org.springframework.security.core.Authentication;
 
 import java.util.Date;
 
 public class Session {
 
+    private String token ;
+    private User loggedUser;
+    private Date lastAction;
 
-    String token;
-    User loggedUser;
-    Date lastAction;
-
-    public Session(String token, User loggedUser, Date lastAction) {
-        this.token = token;
+    public Session(String token , User loggedUser, Date lastAction) {
+        this.token  = token ;
         this.loggedUser = loggedUser;
         this.lastAction = lastAction;
     }
 
     public String getToken() {
-        return token;
+        return token ;
     }
 
     public void setToken(String token) {
-        this.token = token;
+        this.token  = token ;
     }
 
-    public User getLoggedUser() {
-        return loggedUser;
-    }
+    public User getLoggedUser() { return loggedUser; }
 
     public void setLoggedUser(User loggedUser) {
         this.loggedUser = loggedUser;
