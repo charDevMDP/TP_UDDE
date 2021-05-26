@@ -7,6 +7,7 @@ import com.tp.udde.domain.dto.LoginRequestDto;
 import com.tp.udde.domain.dto.LoginResponseDto;
 import com.tp.udde.domain.dto.UserDto;
 import com.tp.udde.exception.InvalidLoginException;
+import com.tp.udde.exception.UserException;
 import com.tp.udde.exception.ValidationException;
 import com.tp.udde.session.SessionManager;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,7 @@ public class LoginController {
 
 
     @PostMapping(value = "login")
-    public ResponseEntity<LoginResponseDto>login(@RequestBody LoginRequestDto loginRequestDto) throws ValidationException, InvalidLoginException {
+    public ResponseEntity login(@RequestBody LoginRequestDto loginRequestDto) throws UserException, ValidationException, InvalidLoginException {
         log.info(loginRequestDto.toString());
         UserDto dto = userController.login(loginRequestDto.getSurname(), loginRequestDto.getPassword(),sessionManager);
         return ResponseEntity.ok(LoginResponseDto.builder().token(this.sessionManager.generateToken(dto)).build());
@@ -49,8 +50,8 @@ public class LoginController {
     }
 
     @GetMapping(value = "/userDetails")
-    public ResponseEntity<User> userDetails(Authentication auth) {
-        return ResponseEntity.ok((User) auth.getPrincipal());
+    public ResponseEntity<User> userDetails(Authentication token) {
+        return ResponseEntity.ok((User) token.getPrincipal());
     }
 
 }

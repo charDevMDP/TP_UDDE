@@ -5,6 +5,7 @@ import com.tp.udde.domain.User;
 import com.tp.udde.domain.dto.UserDto;
 import com.tp.udde.domain.dto.LoginResponseDto;
 import com.tp.udde.exception.InvalidLoginException;
+import com.tp.udde.exception.UserException;
 import com.tp.udde.exception.ValidationException;
 import com.tp.udde.session.SessionManager;
 import org.modelmapper.ModelMapper;
@@ -61,7 +62,7 @@ public class UserController {
     }*/
 
 
-    public UserDto login(String username, String password, SessionManager sessionManager) throws InvalidLoginException, ValidationException {
+    public UserDto login(String username, String password, SessionManager sessionManager) throws UserException, ValidationException, InvalidLoginException {
         if ((username != null) && (password != null)) {
             User user = userService.login(username, password);
             if(sessionManager.userIsLogged(user)){

@@ -1,6 +1,7 @@
 package com.tp.udde.service;
 
 
+import com.tp.udde.exception.UserException;
 import com.tp.udde.repository.UserRepository;
 import com.tp.udde.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,9 @@ public class UserService {
         return users;
     }
 
-    public User login(String surname, String password) {
-        return userRepository.getByUsername(surname, password);
+    public User login(String surname, String password) throws UserException {
+        User user = userRepository.getByUsername(surname, password);;
+        return Optional.ofNullable(user).orElseThrow(() -> new UserException("User not exists"));
     }
 
     public void deleteById(Integer id) {
