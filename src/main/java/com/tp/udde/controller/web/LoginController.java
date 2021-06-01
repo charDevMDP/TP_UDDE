@@ -12,10 +12,11 @@ import com.tp.udde.exception.ValidationException;
 import com.tp.udde.session.SessionManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Slf4j
@@ -49,9 +50,15 @@ public class LoginController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/userDetails")
-    public ResponseEntity<User> userDetails(Authentication token) {
+    @GetMapping(value = "api/userDetails")
+    public ResponseEntity<User> userDetails(@RequestBody Authentication token) {
         return ResponseEntity.ok((User) token.getPrincipal());
+    }
+
+
+    @GetMapping(value = "apis")
+    public List<User> getUsers() {
+        return this.userController.getUsers();
     }
 
 }

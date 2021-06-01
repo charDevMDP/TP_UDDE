@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import com.tp.udde.service.UserService;
 
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -74,6 +75,11 @@ public class UserController {
         } else {
             return (UserDto) Optional.ofNullable(null).orElseThrow(() -> new ValidationException("Username and password must have a value"));
         }
+    }
+
+    public List<User> getUsers()
+    {
+        return userService.getAll();
     }
 
 }

@@ -71,7 +71,14 @@ public class SessionManager {
 
     public String generateToken(UserDto userDto) {
         try {
-            List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("CLIENT");
+            List<GrantedAuthority> grantedAuthorities;
+            if(userDto.getUserType() == "CLIENT")
+            {
+                grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("CLIENT");
+            }
+            else {
+                grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("BACKOFFICE");
+            }
             String token = Jwts
                     .builder()
                     .setId("JWT")

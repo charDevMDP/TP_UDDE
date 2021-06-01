@@ -29,8 +29,13 @@ public class UddeApplication {
 			http.csrf().disable()
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
-					.antMatchers(HttpMethod.POST, "/login").permitAll()
-					.anyRequest().authenticated();
+					//.antMatchers(HttpMethod.POST, "/login").permitAll()
+					//.antMatchers("/api/").access("userType('CLIENT')")
+					//.mvcMatchers(HttpMethod.POST, "/api/**").permitAll()
+					.antMatchers("/**").permitAll();
+					//.anyRequest().permitAll();
+					//.anyRequest().authenticated();
 		}
 	}
+
 }
