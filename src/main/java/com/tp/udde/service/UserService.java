@@ -4,6 +4,7 @@ package com.tp.udde.service;
 
 import com.tp.udde.exception.UserException;
 import com.tp.udde.domain.dto.MeterUserDto;
+import com.tp.udde.projections.MeterUser;
 import com.tp.udde.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,6 +13,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -57,7 +59,7 @@ public class UserService {
     }
 
     // meter of user
-    public MeterUserDto meterOfUser(Integer idUser){
+    public MeterUser meterOfUser(Integer idUser){
         return  userRepository.getMeterUser(idUser);
     }
 }

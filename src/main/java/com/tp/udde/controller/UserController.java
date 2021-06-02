@@ -6,6 +6,7 @@ import com.tp.udde.domain.dto.UserDto;
 import com.tp.udde.exception.InvalidLoginException;
 import com.tp.udde.exception.UserException;
 import com.tp.udde.exception.ValidationException;
+import com.tp.udde.projections.MeterUser;
 import com.tp.udde.session.SessionManager;
 import org.modelmapper.ModelMapper;
 
@@ -18,6 +19,7 @@ import com.tp.udde.service.UserService;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -85,7 +87,7 @@ public class UserController {
         return userService.getAll();
     }
 
-    public MeterUserDto meterofuser(Integer idUser) {
+    public MeterUser meterofuser(Integer idUser) {
         return userService.meterOfUser(idUser);
     }
 }

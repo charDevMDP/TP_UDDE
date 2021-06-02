@@ -4,12 +4,14 @@ package com.tp.udde.repository;
 
 import com.tp.udde.domain.Meter;
 import com.tp.udde.domain.dto.MeterUserDto;
+import com.tp.udde.projections.MeterUser;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.tp.udde.domain.User;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -22,5 +24,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "inner join addresses ad on ad.id_user = us.id "+
             "inner join meters me on me.id_address = ad.id "+
             "WHERE us.id = ?1", nativeQuery = true)
-    MeterUserDto getMeterUser(Integer user_id);
+    MeterUser getMeterUser(Integer user_id);
 }
