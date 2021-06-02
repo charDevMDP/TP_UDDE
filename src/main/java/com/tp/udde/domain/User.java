@@ -24,6 +24,10 @@ public class User {
     private String name;
 
     @NonNull
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @NonNull
     @Column(name = "surname", nullable = false)
     private String surname;
 

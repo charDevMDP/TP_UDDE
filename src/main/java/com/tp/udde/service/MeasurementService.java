@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,15 @@ public class MeasurementService {
         }
     }
 
+    // lab.4
+    public Map<Float, Float> getConsumption(Integer user_id, String firstDate, String secondDate) {
+        return measurementRepository.getConsumptionForDate(user_id,firstDate,secondDate);
+    }
+
+    // lab.5
     public List<Measurement> getMeasurementByDates(Integer userId, String startDate, String endDate){
         return measurementRepository.getMeasurementForDate(userId,startDate,endDate);
     }
+
+
 }

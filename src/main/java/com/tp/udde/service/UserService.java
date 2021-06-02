@@ -1,9 +1,10 @@
 package com.tp.udde.service;
 
 
+
 import com.tp.udde.exception.UserException;
+import com.tp.udde.domain.dto.MeterUserDto;
 import com.tp.udde.repository.UserRepository;
-import com.tp.udde.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -53,5 +54,10 @@ public class UserService {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    // meter of user
+    public MeterUserDto meterOfUser(Integer idUser){
+        return  userRepository.getMeterUser(idUser);
     }
 }

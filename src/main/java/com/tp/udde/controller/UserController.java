@@ -3,12 +3,14 @@ package com.tp.udde.controller;
 import com.tp.udde.domain.User;
 
 import com.tp.udde.domain.dto.UserDto;
-import com.tp.udde.domain.dto.LoginResponseDto;
 import com.tp.udde.exception.InvalidLoginException;
 import com.tp.udde.exception.UserException;
 import com.tp.udde.exception.ValidationException;
 import com.tp.udde.session.SessionManager;
 import org.modelmapper.ModelMapper;
+
+
+import com.tp.udde.domain.dto.MeterUserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -17,6 +19,7 @@ import com.tp.udde.service.UserService;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
+
 
 @Controller
 public class UserController {
@@ -82,4 +85,7 @@ public class UserController {
         return userService.getAll();
     }
 
+    public MeterUserDto meterofuser(Integer idUser) {
+        return userService.meterOfUser(idUser);
+    }
 }

@@ -48,10 +48,12 @@ public class InvoiceService {
         }
     }
 
+    // lab.2
     public List<Invoice> getInvoiceBetweenDates(Integer userId, LocalDate startDate, LocalDate endDate){
         return invoiceRepository.findInvoiceBetweenDates(userId, startDate,endDate);
     }
 
+    // lab.3
     public List<Invoice> getInvoicesOwed(Integer userId){
         return invoiceRepository.getInvoicesOwed(userId);
     }

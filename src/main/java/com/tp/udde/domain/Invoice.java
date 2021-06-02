@@ -27,7 +27,7 @@ public class Invoice {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name="id_meters",foreignKey = @ForeignKey(name = "id_meters_invoices"))
-    private Meters meters;
+    private Meter meters;
 
     @Column(name = "id_user", nullable = false)
     private Integer idUser;
