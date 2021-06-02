@@ -9,12 +9,14 @@ CREATE TABLE users (
       id int UNSIGNED AUTO_INCREMENT,
       dni varchar(255) NOT NULL,
       email varchar(255) NOT NULL,
+      username varchar(255) NOT NULL
       name varchar(255) NOT NULL,
       password varchar(255) NOT NULL,
       surname varchar(255) NOT NULL,
       user_type varchar(20) DEFAULT 'CLIENT',
       CONSTRAINT pk_id_users PRIMARY KEY (id),
       CONSTRAINT UNIQUE  unq_dni (dni),
+      CONSTRAINT UNIQUE  unq_username (username),
       CONSTRAINT UNIQUE unq_email (email));
 
 CREATE TABLE addresses(
@@ -97,3 +99,11 @@ INSERT INTO models (id_brand,name,type) VALUES (2,"Corp","posuere"),(1,"LLP","or
 INSERT INTO cities (name) VALUES ("Buenos Aires"),("Córdoba"),("Rosario"),("Mar del Plata"),("San Miguel de Tucumán"),("Salta"),("Santa Fe"),("Corrientes"),("Bahía Blanca"),("Resistencia"),("Posadas"),("Merlo"),("Quilmes"),("San Salvador de Jujuy"),("Guaymallén"),
 ("Santiago del Estero"),("Gregorio de Laferrere"),("José C. Paz"),("Paraná"),("Banfield"),("González Catán"),("Neuquén"),("Formosa"),("Lanús"),("La Plata"),("Godoy Cruz"),("Isidro Casanova"),("Las Heras"),("Berazategui"),("La Rioja"),("Comodoro Rivadavia"),("Moreno"),("San Luis"),("San Miguel"),("San Fernando del Valle de Catamarca"),("Río Cuarto"),("Virrey del Pino");
 
+
+INSERT Into users (dni,email,name,password,surname,username) values ("123123","Elbagallo@gmail.com","elba","pass123","gallo","elbita");
+
+INSERT Into addresses (department,name,number,id_city,id_user) values (1,"castex",2054,1,1);
+
+INSERT Into meters (number,password,id_address,id_model,id_rate) values (123,"pass",1,1,1);
+
+INSERT Into rates (price,`type`) values (5.50,'220');

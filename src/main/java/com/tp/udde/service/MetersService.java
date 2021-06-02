@@ -9,37 +9,37 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import com.tp.udde.domain.Meters;
-import com.tp.udde.repository.MetersRepository;
+import com.tp.udde.domain.Meter;
+import com.tp.udde.repository.MeterRepository;
 
 @Service
 public class MetersService {
 
     @Autowired
-    private MetersRepository metersRepository;
+    private MeterRepository meterRepository;
 
-    public List<Meters> getAll() {
-        List<Meters> meters = metersRepository.findAll();
+    public List<Meter> getAll() {
+        List<Meter> meters = meterRepository.findAll();
         return meters;
     }
 
     public void deleteById(Integer id) {
-        metersRepository.delete(getById(id));
+        meterRepository.delete(getById(id));
     }
 
-    public Meters add(Meters meters) {
-        return metersRepository.save(meters);
+    public Meter add(Meter meters) {
+        return meterRepository.save(meters);
     }
 
-    public Meters getById(Integer id) {
-        return metersRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+    public Meter getById(Integer id) {
+        return meterRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
     }
 
-    public Meters update(Integer id, Meters meters) {
-        Optional<Meters> measurerFind = metersRepository.findById(id);
+    public Meter update(Integer id, Meter meters) {
+        Optional<Meter> measurerFind = meterRepository.findById(id);
         if (measurerFind.isPresent()) {
             meters.setId(id);
-            return metersRepository.save(meters);
+            return meterRepository.save(meters);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

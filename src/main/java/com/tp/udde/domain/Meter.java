@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @Builder
-public class Meters {
+public class Meter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class Meters {
     private Rate rate;
 
     @Column(name = "number", unique = true)
-    private int number;
+    private Integer number;
 
     @Column(name = "password", nullable = false)
     private String password;
