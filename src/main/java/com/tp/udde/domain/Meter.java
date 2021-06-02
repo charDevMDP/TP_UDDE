@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @Builder
-public class Meters {
+public class Meter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

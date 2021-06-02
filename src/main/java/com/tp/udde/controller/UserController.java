@@ -3,11 +3,13 @@ package com.tp.udde.controller;
 import com.tp.udde.domain.User;
 
 
-
+import com.tp.udde.domain.dto.MeterUserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.tp.udde.service.UserService;
+
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -50,4 +52,7 @@ public class UserController {
         return userService.login(surname, password);
     }
 
+    public MeterUserDto meterofuser(Integer idUser) {
+        return userService.meterOfUser(idUser);
+    }
 }

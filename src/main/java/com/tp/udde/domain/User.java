@@ -23,6 +23,10 @@ public class User {
     private String name;
 
     @NonNull
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @NonNull
     @Column(name = "surname", nullable = false)
     private String surname;
 
@@ -41,4 +45,5 @@ public class User {
     @Column(name = "user_type", columnDefinition = "varchar(20) default 'CLIENT'")
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
+
 }
