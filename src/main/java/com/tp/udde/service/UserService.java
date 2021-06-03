@@ -31,8 +31,8 @@ public class UserService {
         return users;
     }
 
-    public User login(String surname, String password) throws UserException {
-        User user = userRepository.getByUsername(surname, password);;
+    public User login(String username, String password) throws UserException {
+        User user = userRepository.getByUsername(username, password);;
         return Optional.ofNullable(user).orElseThrow(() -> new UserException("User not exists"));
     }
 

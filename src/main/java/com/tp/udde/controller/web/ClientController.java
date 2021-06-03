@@ -1,22 +1,19 @@
 package com.tp.udde.controller.web;
 
 import com.tp.udde.controller.UserController;
-import com.tp.udde.domain.dto.MeterUserDto;
+import com.tp.udde.domain.User;
 import com.tp.udde.projections.MeterUser;
 import com.tp.udde.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
-import java.util.Map;
 
 
-@Slf4j
 @RestController
-@RequestMapping(value = "/client")
+@RequestMapping(value = "/")
 public class ClientController {
 
     private final UserController userController ;
@@ -36,6 +33,12 @@ public class ClientController {
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @PreAuthorize(value = "hasRole('CLIENT')")
+    @GetMapping(value = "/client/apis")
+    public List<User> getUsers() {
+        return this.userController.getUsers();
     }
 
 }

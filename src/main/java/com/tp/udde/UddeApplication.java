@@ -20,22 +20,4 @@ public class UddeApplication {
 		SpringApplication.run(UddeApplication.class, args);
 	}
 
-	@EnableWebSecurity
-	@Configuration
-	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable()
-					//.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-					.authorizeRequests()
-					//.antMatchers(HttpMethod.POST, "/login").permitAll()
-					//.antMatchers("/api/").access("userType('CLIENT')")
-					//.mvcMatchers(HttpMethod.POST, "/api/**").permitAll()
-					.antMatchers("/**").permitAll();
-					//.anyRequest().permitAll();
-					//.anyRequest().authenticated();
-		}
-	}
-
 }
