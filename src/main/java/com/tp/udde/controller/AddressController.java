@@ -24,10 +24,7 @@ public class AddressController {
     }
 
     // traigo todos
-    @GetMapping
-    public List<Address> getAll() {
-        return addressService.getAll();
-    }
+    public List<Address> getAll() { return addressService.getAll();}
 
     // traigo uno
     @GetMapping("/{id}")
