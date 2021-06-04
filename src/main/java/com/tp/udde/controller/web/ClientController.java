@@ -9,11 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/client")
 public class ClientController {
 
     private final UserController userController ;
@@ -35,8 +37,10 @@ public class ClientController {
         }
     }
 
-    @PreAuthorize(value = "hasRole('CLIENT')")
-    @GetMapping(value = "/client/apis")
+
+
+    //@PreAuthorize(value = "hasAuthority('CLIENT')")
+    @GetMapping(value = "/users")
     public List<User> getUsers() {
         return this.userController.getUsers();
     }
