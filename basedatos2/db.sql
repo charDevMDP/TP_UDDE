@@ -104,6 +104,10 @@ INSERT Into users (dni,email,name,password,surname,username) values ("123123","E
 
 INSERT Into addresses (department,name,number,id_city,id_user) values (1,"castex",2054,1,1);
 
+INSERT Into rates (price,`type`) values (5.50,'220');
+
 INSERT Into meters (number,password,id_address,id_model,id_rate) values (123,"pass",1,1,1);
 
-INSERT Into rates (price,`type`) values (5.50,'220');
+INSERT Into users (dni,email,name,password,surname,username,user_type) VALUES ("3838123","admin@admin.com","admin","123","Pro","Admin","BACKOFFICE");
+
+

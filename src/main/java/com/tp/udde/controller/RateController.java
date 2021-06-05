@@ -15,19 +15,22 @@ import com.tp.udde.service.RateService;
 public class RateController {
 
     @Autowired
-    RateService rateService;
-/*
-    // agrego uno
-    @PostMapping
-    public Rate addRate(@RequestBody Rate rate) {
-        return rateService.add(rate);
-    }
+    private RateService rateService;
 
     // traigo todos
-    @GetMapping
-    public List<Rate> getAll() {
-        return rateService.getAll();
+    public List<Rate> getRates() { return this.rateService.getAll();}
+
+    // agrego uno
+    public Rate addRate(@RequestBody Rate rate) {return rateService.add(rate);}
+
+    // elimino uno
+    public void deleteByIdRate(Integer id) {rateService.deleteByIdRate(id);
     }
+
+    // actualizo
+    public Rate replaceRate(@PathVariable Integer id, @RequestBody Rate rate) {return rateService.update(id, rate);}
+
+/*
 
     // traigo uno
     @GetMapping("/{id}")
@@ -35,16 +38,5 @@ public class RateController {
         return rateService.getById(id);
     }
 
-    // actualizo
-    @PutMapping("/{id}")
-    public Rate replaceRate(@PathVariable Integer id, @RequestBody Rate rate) {
-        return rateService.update(id, rate);
-    }
-
-    // elimino uno
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Integer id) {
-        rateService.deleteById(id);
-    }
 */
 }
