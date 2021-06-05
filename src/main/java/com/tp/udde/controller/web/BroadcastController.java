@@ -21,7 +21,7 @@ public class BroadcastController {
         this.rateController = rateController;
     }
 
-    @PostMapping(value = "/measurements")
+    /*@PostMapping(value = "/measurements")
     public MeasurementDto addRate(@RequestHeader MeasurementDto measurementDto) {
         System.out.printf(measurementDto.toString());
         if (!(measurementDto.equals(null))) {
@@ -31,6 +31,6 @@ public class BroadcastController {
         {
             return (MeasurementDto) ResponseEntity.notFound();
         }
-    }
+    }*/
 
 }
