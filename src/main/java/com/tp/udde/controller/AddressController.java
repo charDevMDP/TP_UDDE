@@ -27,20 +27,18 @@ public class AddressController {
     public List<Address> getAll() { return addressService.getAll();}
 
     // traigo uno
-    @GetMapping("/{id}")
     public Address getById(@PathVariable Integer id) {
         return addressService.getById(id);
     }
 
     // actualizo
-    @PutMapping("/{id}")
-    public Address replaceAddress(@PathVariable Integer id, @RequestBody Address address) {
+    public Address updateAddressById(@PathVariable Integer id, @RequestBody Address address) {
         return addressService.update(id, address);
     }
 
     // elimino uno
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Integer id) {
+    public void deleteByIdAddress(@PathVariable Integer id) {
         addressService.deleteById(id);
     }
 

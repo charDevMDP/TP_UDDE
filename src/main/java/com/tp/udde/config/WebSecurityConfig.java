@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
                 .antMatchers("/client/**").hasAuthority("CLIENT")
                 .antMatchers("/backoffice/**").hasAuthority("BACKOFFICE")
-                //.antMatchers("/client/**").permitAll()
+                .antMatchers("/measurements/**").permitAll()
                 .anyRequest().authenticated();
     }
 }

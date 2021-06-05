@@ -2,9 +2,11 @@ package com.tp.udde.controller.web;
 
 
 import com.tp.udde.controller.AddressController;
+import com.tp.udde.controller.MeterController;
 import com.tp.udde.controller.RateController;
 import com.tp.udde.controller.UserController;
 import com.tp.udde.domain.Address;
+import com.tp.udde.domain.Meter;
 import com.tp.udde.domain.Rate;
 import com.tp.udde.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,14 @@ public class BackOfficeController {
     private final UserController userController ;
     private final RateController rateController;
     private final AddressController addressController;
+    private final MeterController meterController;
 
     @Autowired
-    public BackOfficeController(UserController userController, RateController rateController, AddressController addressController) {
+    public BackOfficeController(UserController userController, RateController rateController, AddressController addressController, MeterController meterController) {
         this.userController = userController;
         this.rateController = rateController;
         this.addressController = addressController;
+        this.meterController = meterController;
     }
 
     @GetMapping(value = "/users")
@@ -55,5 +59,55 @@ public class BackOfficeController {
     public Address addAddress(@RequestBody Address address) {
         return addressController.addAddress(address);
     }
-    
+
+    @GetMapping("address/{id}")
+    public Address getById(@PathVariable Integer id) {
+        return addressController.getById(id);
+    }
+
+    @PutMapping("address/{id}")
+    public Address replaceAddress(@PathVariable Integer id, @RequestBody Address address) {
+        return addressController.updateAddressById(id, address);
+    }
+
+    @DeleteMapping("address/{id}")
+    public void deleteByIdAddress(@PathVariable Integer id) {
+        addressController.deleteByIdAddress(id);
+    }
+    //**
+
+    //Meter**
+    @GetMapping(value = "meter")
+    public List<Meter> getAllMeter() {
+        return meterController.getAllMeter();
+    }
+
+    @GetMapping("meter/{id}")
+    public Meter getByIdMeter(@PathVariable Integer id) {
+        return meterController.getByIdMeter(id);
+    }
+
+    @PostMapping("meter")
+    public Meter addMeasurer(@RequestBody Meter meters) {
+        return meterController.addMeasurer(meters);
+    }
+
+    @PutMapping("meter/{id}")
+    public Meter replaceMeter(@PathVariable Integer id, @RequestBody Meter meters) {
+        return meterController.replaceMeter(id, meters);
+    }
+
+    @DeleteMapping("meter/{id}")
+    public void deleteByIdMeter(@PathVariable Integer id) {
+        meterController.deleteByIdMeter(id);
+    }
+    //**
+
+    //MeterAndAddress
+    @PostMapping("meter/address")
+    public Meter addMeasurerAddress(@RequestBody Meter meters) {
+        return meterController.addMeasurer(meters);
+    }
+
+
 }
