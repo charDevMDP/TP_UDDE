@@ -1,6 +1,7 @@
 package com.tp.udde.service;
 
 import com.tp.udde.domain.Invoice;
+import com.tp.udde.projections.Consumption;
 import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -52,13 +53,13 @@ public class MeasurementService {
     }
 
     // lab.4
-    public Map<Float, Float> getConsumption(Integer user_id, String firstDate, String secondDate) {
-        return measurementRepository.getConsumptionForDate(user_id,firstDate,secondDate);
+    public Consumption getConsumption(Integer meter_id, LocalDate firstDate, LocalDate secondDate) {
+        return measurementRepository.getConsumptionForDate(meter_id,firstDate,secondDate);
     }
 
     // lab.5
-    public List<Measurement> getMeasurementByDates(Integer userId, String startDate, String endDate){
-        return measurementRepository.getMeasurementForDate(userId,startDate,endDate);
+    public List<Measurement> getMeasurementByDates(Integer meterId, LocalDate startDate, LocalDate endDate){
+        return measurementRepository.getMeasurementForDate(meterId,startDate,endDate);
     }
 
 
