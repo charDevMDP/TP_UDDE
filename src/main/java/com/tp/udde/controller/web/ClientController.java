@@ -8,6 +8,7 @@ import com.tp.udde.domain.Measurement;
 import com.tp.udde.domain.User;
 import com.tp.udde.projections.Consumption;
 import com.tp.udde.projections.MeterUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/client")
 public class ClientController {
@@ -80,6 +81,7 @@ public class ClientController {
 
 
     // lab.4 traigo consumo por rango por fechas (kwh y dinero en ese periodo)
+    @PreAuthorize(value= "hasAuthority('CLIENT') and authentication.principal.id.equals(#id)")
     @GetMapping("/consumption/{id}")
     public ResponseEntity<Consumption> getConsumption(
             @PathVariable Integer id,
@@ -96,13 +98,16 @@ public class ClientController {
     }
 
     // lab.5 traigo las mediciones de entre fechas
-    @GetMapping("/measurement/{id}")
+    @PreAuthorize(value= "hasAuthority('CLIENT') and authentication.principal.id.equals(#id)")
+    @GetMapping("/measurements/{id}")
     public ResponseEntity<List<Measurement>> getMeasurementBetweenDates(
             @PathVariable Integer id,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate
     ){
         MeterUser meterUser = userController.meterofuser(id);
+        log.info("medidor");
+        log.info(meterUser.getNumberMeter().toString());
         List<Measurement> measurements =  measurementController.getMeasurementBetweenDates(meterUser.getNumberMeter(),firstDate,secondDate);
         if(measurements!=null){
             return ResponseEntity.ok(measurements);

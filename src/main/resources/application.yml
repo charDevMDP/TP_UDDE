@@ -23,7 +23,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/uddedb
     username: root
-    password:
+    password: mysqltoor
   application:
     name: udde-devmysql
 
