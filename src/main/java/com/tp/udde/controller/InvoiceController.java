@@ -3,6 +3,8 @@ package com.tp.udde.controller;
 import com.tp.udde.domain.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,24 +46,18 @@ public class InvoiceController {
     public void deleteById(@PathVariable Integer id) {
         invoiceService.deleteById(id);
     }
-
-    @GetMapping("/data")
-    public List<Invoice> getInvoiceBetweenDates(@RequestParam Integer userId, @RequestParam LocalDate initialDate,@RequestParam LocalDate endDate){
-        return invoiceService.getInvoiceBetweenDates(userId,initialDate,endDate);
-    }
 */
 
     // lab.2 traigo las facturas de entre fechas
-    @GetMapping("/data")
-    public List<Invoice> getInvoiceBetweenDates(@RequestParam Integer userId, @RequestParam LocalDate initialDate,@RequestParam LocalDate endDate){
-        return invoiceService.getInvoiceBetweenDates(userId,initialDate,endDate);
+    public List<Invoice> getInvoiceBetweenDates(Integer meterId, LocalDate initialDate, LocalDate endDate){
+        return invoiceService.getInvoiceBetweenDates(meterId,initialDate,endDate);
     }
 
 
     // lab.3 traigo las facturas adeudadas
     @GetMapping("/owed")
-    public List<Invoice> getInvoicesOwed(@RequestParam Integer userId){
-        return  this.invoiceService.getInvoicesOwed(userId);
+    public List<Invoice> getInvoicesOwed(@PathVariable Integer userId){
+        return  invoiceService.getInvoicesOwed(userId);
     }
 
 

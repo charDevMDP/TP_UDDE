@@ -43,7 +43,7 @@ public class LoginController {
         this.objectMapper = objectMapper;
     }
 
-
+    // lab.1 login
     @PostMapping(value = "login")
     public ResponseEntity login(@RequestBody LoginRequestDto loginRequestDto) throws UserException, ValidationException, InvalidLoginException {
         log.info(loginRequestDto.toString());
@@ -62,7 +62,6 @@ public class LoginController {
     public ResponseEntity<User> userDetails(@RequestBody Authentication token) {
         return ResponseEntity.ok((User) token.getPrincipal());
     }
-
 
 
     public String generateToken(UserDto userDto) {

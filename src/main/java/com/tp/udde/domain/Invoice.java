@@ -48,6 +48,7 @@ public class Invoice {
     private int number;
 
     @Column(name = "invoice_status", columnDefinition = "varchar(20) default 'OWED'")
+    @Enumerated(value = EnumType.STRING)
     private InvoiceStatus invoiceStatus;
 
     @Column(name = "total", nullable = false)

@@ -2,8 +2,10 @@ package com.tp.udde.controller;
 
 
 import com.tp.udde.domain.Measurement;
+import com.tp.udde.projections.Consumption;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -49,22 +51,17 @@ public class MeasurementController {
         measurementService.deleteById(id);
     }
 
+  */
 
     // lab.4 traigo consumo por rango por fechas (kwh y dinero en ese periodo)
-    @GetMapping("/data/{id}/{firstDate}/{secondDate}")
-        public Map<Float,Float> getConsumption(@PathVariable Integer user_id,
-                @PathVariable(value = "firstDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String firstDate,
-                @PathVariable(value = "secondDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String secondDate){
-            return measurementService.getConsumption(user_id,firstDate,secondDate);
+    public Consumption getConsumption(Integer meter_id, LocalDate firstDate, LocalDate secondDate){
+        return measurementService.getConsumption(meter_id,firstDate,secondDate);
     }
 
     // lab.5 traigo las mediciones de entre fechas
-    @GetMapping("/data/{id}/{firstDate}/{secondDate}")
-    public List<Measurement> getMeasurementBetweenDates(@PathVariable Integer user_id,
-                                                        @PathVariable(value = "firstDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String firstDate,
-                                                        @PathVariable(value = "secondDate", required = true) @DateTimeFormat(pattern = "YYYY-MM-DD") String secondDate){
-        return measurementService.getMeasurementByDates(user_id,firstDate,secondDate);
+    public List<Measurement> getMeasurementBetweenDates(Integer meter_id, LocalDate firstDate, LocalDate secondDate){
+        return measurementService.getMeasurementByDates(meter_id,firstDate,secondDate);
     }
-  */
+
 
 }
