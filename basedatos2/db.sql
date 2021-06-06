@@ -109,6 +109,7 @@ INSERT Into rates (price,`type`) values (5.50,'220');
 INSERT Into meters (number,password,id_address,id_model,id_rate) values (123,"pass",1,1,1);
 
 INSERT Into users (dni,email,name,password,surname,username,user_type) VALUES ("3838123","admin@admin.com","admin","123","Pro","Admin","BACKOFFICE");
+INSERT Into users (dni,email,name,password,surname,username) VALUES ("38831211","david95el@hotmail.com","David","123","Navarro","Navarrodda");
 
 
 // users
