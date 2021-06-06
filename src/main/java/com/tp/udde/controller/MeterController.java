@@ -39,4 +39,10 @@ public class MeterController {
         metersService.deleteById(id);
     }
 
+    //Taigo el meter por Number y Pass
+    public Meter getByMeterNumberAndPass(String number, String password) {
+        return metersService.getByMeterNumberAndPass(number,password);
+    }
+
+
 }
