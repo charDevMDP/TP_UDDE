@@ -127,9 +127,9 @@ INSERT Into addresses (department,name,number,id_city,id_user) values (1,"colon"
 
 // medidores
 
-INSERT Into meters (number,password,id_address,id_model,id_rate) values (123,"pass",1,1,1);
-INSERT Into meters (number,password,id_address,id_model,id_rate) values (122,"pass",2,2,1);
-INSERT Into meters (number,password,id_address,id_model,id_rate) values (121,"pass",4,1,1);
+INSERT Into meters (number,password,id_address,id_model,id_rate) values (123,"12345",1,1,1);
+INSERT Into meters (number,password,id_address,id_model,id_rate) values (122,"1234567",2,2,1);
+INSERT Into meters (number,password,id_address,id_model,id_rate) values (121,"124444",4,1,1);
 
 // facturas usuario 1
 
