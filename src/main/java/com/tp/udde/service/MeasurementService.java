@@ -1,19 +1,18 @@
 package com.tp.udde.service;
 
-import com.tp.udde.domain.Invoice;
-import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
+import com.tp.udde.domain.dto.MeasurementDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.tp.udde.domain.Measurement;
 import com.tp.udde.repository.MeasurementRepository;
@@ -33,7 +32,20 @@ public class MeasurementService {
         measurementRepository.delete(getById(id));
     }
 
-    public Measurement add(Measurement measurement) {
+    public Measurement add(MeasurementDto measurementDto) {
+        Measurement measurement = new Measurement();
+        try {
+        SimpleDateFormat formatToDate = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+
+            date = formatToDate.parse(measurementDto.getDate().toString());
+            measurement.setDate(date);
+            measurement.setKwh(measurementDto.getValue());
+        }
+        catch (ParseException ex)
+        {
+            System.out.println(ex);
+        }
         return measurementRepository.save(measurement);
     }
 

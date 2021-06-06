@@ -3,9 +3,12 @@ package com.tp.udde.controller.web;
 import com.tp.udde.controller.MeasurementController;
 import com.tp.udde.controller.MeterController;
 import com.tp.udde.controller.RateController;
+import com.tp.udde.domain.Measurement;
 import com.tp.udde.domain.dto.MeasurementDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping(value = "/")
@@ -21,16 +24,16 @@ public class BroadcastController {
         this.rateController = rateController;
     }
 
-    /*@PostMapping(value = "/measurements")
-    public MeasurementDto addRate(@RequestHeader MeasurementDto measurementDto) {
-        System.out.printf(measurementDto.toString());
+    @PostMapping(value = "measurements")
+    public Measurement addRate(@RequestBody MeasurementDto measurementDto) {
+        System.out.printf(measurementDto.getDate());
         if (!(measurementDto.equals(null))) {
-            return measurementController
+            return measurementController.addMeasurement(measurementDto);
         }
         else
         {
-            return (MeasurementDto) ResponseEntity.notFound();
+            return (Measurement) ResponseEntity.notFound();
         }
-    }*/
+    }
 
 }

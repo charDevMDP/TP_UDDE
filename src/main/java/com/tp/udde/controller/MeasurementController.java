@@ -2,6 +2,7 @@ package com.tp.udde.controller;
 
 
 import com.tp.udde.domain.Measurement;
+import com.tp.udde.domain.dto.MeasurementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -18,6 +19,12 @@ public class MeasurementController {
 
     @Autowired
     MeasurementService measurementService;
+
+
+
+    public Measurement addMeasurement(MeasurementDto measurement) {
+        return measurementService.add(measurement);
+    }
     /*
     // agrego uno
     @PostMapping
