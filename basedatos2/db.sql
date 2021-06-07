@@ -109,5 +109,64 @@ INSERT Into rates (price,`type`) values (5.50,'220');
 INSERT Into meters (number,password,id_address,id_model,id_rate) values (123,"pass",1,1,1);
 
 INSERT Into users (dni,email,name,password,surname,username,user_type) VALUES ("3838123","admin@admin.com","admin","123","Pro","Admin","BACKOFFICE");
+INSERT Into users (dni,email,name,password,surname,username) VALUES ("38831211","david95el@hotmail.com","David","123","Navarro","Navarrodda");
 
 
+// users
+
+INSERT Into users (dni,email,name,password,surname,username) values ("123123","Elbagallo@gmail.com","elba","pass123","gallo","elbita");
+INSERT Into users (dni,email,name,password,surname,username) values ("20123123","DonPepito@gmail.com","jose","pass124","perez","pepito");
+INSERT Into users (dni,email,name,password,surname,username,user_type) VALUES ("3838123","admin@admin.com","admin","123","Pro","Admin","BACKOFFICE");
+
+
+// dirrecciones
+
+INSERT Into addresses (department,name,number,id_city,id_user) values (1,"castex",2054,1,1);
+INSERT Into addresses (department,name,number,id_city,id_user) values (1,"independencia",1800,2,2);
+INSERT Into addresses (department,name,number,id_city,id_user) values (1,"colon",5600,3,4);
+
+// medidores
+
+INSERT Into meters (number,password,id_address,id_model,id_rate) values (123,"12345",1,1,1);
+INSERT Into meters (number,password,id_address,id_model,id_rate) values (122,"1234567",2,2,1);
+INSERT Into meters (number,password,id_address,id_model,id_rate) values (121,"124444",4,1,1);
+
+// facturas usuario 1
+
+INSERT INTO invoices
+(consumer_kw,date_end,date_initial,date_invoice,id_user,invoice_status,`number`,total,id_meters)
+values (20.5,"2020-05-31","2020-05-01","2020-06-01",1,"OWED",123,500.00,1);
+
+INSERT INTO invoices
+(consumer_kw,date_end,date_initial,date_invoice,id_user,invoice_status,`number`,total,id_meters)
+values (50.8,"2020-06-30","2020-06-01","2020-07-01",1,"OWED",124,800.00,1);
+
+INSERT INTO invoices
+(consumer_kw,date_end,date_initial,date_invoice,id_user,invoice_status,`number`,total,id_meters)
+values (20.8,"2020-04-30","2020-04-01","2020-06-01",1,"PAID",122,550.00,1);
+
+
+// facturas usuario 4 medidor 3
+
+INSERT INTO invoices
+(consumer_kw,date_end,date_initial,date_invoice,id_user,invoice_status,`number`,total,id_meters)
+values (20,"2021-05-31","2021-05-01","2020-06-01",1,"OWED",121,480.20,3);
+
+INSERT INTO invoices
+(consumer_kw,date_end,date_initial,date_invoice,id_user,invoice_status,`number`,total,id_meters)
+values (55.7,"2021-03-30","2021-03-01","2020-04-01",1,"OWED",120,910.00,3);
+
+INSERT INTO invoices
+(consumer_kw,date_end,date_initial,date_invoice,id_user,invoice_status,`number`,total,id_meters)
+values (10.4,"2021-04-30","2021-04-01","2020-05-01",1,"PAID",119,55.00,3);
+
+
+// mediciones
+
+INSERT Into measurements (date,id_invoice,kwh) values ('2020-05-01', 1,10);
+INSERT Into measurements (date,id_invoice,kwh) values ('2020-05-01', 1,20);
+
+
+// mediciones x medidores
+INSERT into meters_for_measurement (id_measurement,id_meters) values (1,1);
+INSERT into meters_for_measurement (id_measurement,id_meters) values (2,1);

@@ -1,18 +1,14 @@
 package com.tp.udde.service;
 
-import com.tp.udde.domain.dto.MeasurementDto;
+import com.tp.udde.projections.Consumption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 import com.tp.udde.domain.Measurement;
 import com.tp.udde.repository.MeasurementRepository;
@@ -51,13 +47,13 @@ public class MeasurementService {
     }
 
     // lab.4
-    public Map<Float, Float> getConsumption(Integer user_id, String firstDate, String secondDate) {
-        return measurementRepository.getConsumptionForDate(user_id,firstDate,secondDate);
+    public Consumption getConsumption(Integer meter_id, Date firstDate, Date secondDate) {
+        return measurementRepository.getConsumptionForDate(meter_id,firstDate,secondDate);
     }
 
     // lab.5
-    public List<Measurement> getMeasurementByDates(Integer userId, String startDate, String endDate){
-        return measurementRepository.getMeasurementForDate(userId,startDate,endDate);
+    public List<Measurement> getMeasurementByDates(Integer meterId, LocalDate startDate, LocalDate endDate){
+        return measurementRepository.getMeasurementForDate(meterId,startDate,endDate);
     }
 
 
