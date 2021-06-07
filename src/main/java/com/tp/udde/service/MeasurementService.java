@@ -10,6 +10,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -53,7 +55,7 @@ public class MeasurementService {
     }
 
     // lab.4
-    public Consumption getConsumption(Integer meter_id, LocalDate firstDate, LocalDate secondDate) {
+    public Consumption getConsumption(Integer meter_id, Date firstDate, Date secondDate) {
         return measurementRepository.getConsumptionForDate(meter_id,firstDate,secondDate);
     }
 
