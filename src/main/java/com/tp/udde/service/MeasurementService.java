@@ -38,7 +38,7 @@ public class MeasurementService {
         SimpleDateFormat formatToDate = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
 
-            date = formatToDate.parse(measurementDto.getDate().toString());
+            date = formatToDate.parse(measurementDto.getDate());
             measurement.setDate(date);
             measurement.setKwh(measurementDto.getValue());
         }

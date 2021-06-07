@@ -6,11 +6,12 @@ import com.tp.udde.controller.MetersForMeasurementController;
 import com.tp.udde.domain.Measurement;
 import com.tp.udde.domain.Meter;
 import com.tp.udde.domain.dto.MeasurementDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/")
 public class BroadcastController {
@@ -30,8 +31,8 @@ public class BroadcastController {
     @PostMapping(value = "measurements")
     public void addMeasurement(@RequestBody MeasurementDto measurementDto) {
         if (measurementDto != null) {
-            Meter meter = new Meter();
-            meter = this.meterController.getByMeterNumberAndPass(measurementDto.getSerialNumber(), measurementDto.getPassword());
+            System.out.printf(measurementDto.getSerialNumber());
+            Meter meter = this.meterController.getByMeterNumberAndPass(measurementDto.getSerialNumber(), measurementDto.getPassword());
             if (meter != null) {
                 Measurement measurement = measurementController.addMeasurement(measurementDto);
                 if (measurement != null) {
