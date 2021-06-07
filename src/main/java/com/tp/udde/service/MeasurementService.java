@@ -32,20 +32,7 @@ public class MeasurementService {
         measurementRepository.delete(getById(id));
     }
 
-    public Measurement add(MeasurementDto measurementDto) {
-        Measurement measurement = new Measurement();
-        try {
-        SimpleDateFormat formatToDate = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-
-            date = formatToDate.parse(measurementDto.getDate());
-            measurement.setDate(date);
-            measurement.setKwh(measurementDto.getValue());
-        }
-        catch (ParseException ex)
-        {
-            System.out.println(ex);
-        }
+    public Measurement add(Measurement measurement) {
         return measurementRepository.save(measurement);
     }
 

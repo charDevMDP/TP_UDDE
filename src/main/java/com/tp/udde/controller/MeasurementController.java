@@ -3,8 +3,17 @@ package com.tp.udde.controller;
 
 import com.tp.udde.domain.Measurement;
 import com.tp.udde.domain.dto.MeasurementDto;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import com.tp.udde.service.MeasurementService;
 
+@Slf4j
 @Controller
 public class MeasurementController {
 
@@ -21,8 +31,18 @@ public class MeasurementController {
     MeasurementService measurementService;
 
 
-
-    public Measurement addMeasurement(MeasurementDto measurement) {
+    public Measurement addMeasurement(MeasurementDto measurementDto) {
+        Measurement measurement = new Measurement();
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String dataTime = measurementDto.getDate().replaceAll("T"," ");
+        Date date = null;
+        try {
+            date = dt.parse(dataTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        measurement.setDate(date);
+        measurement.setKwh(measurementDto.getValue());
         return measurementService.add(measurement);
     }
     /*
