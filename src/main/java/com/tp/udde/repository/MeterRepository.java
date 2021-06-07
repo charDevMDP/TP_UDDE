@@ -1,6 +1,5 @@
 package com.tp.udde.repository;
 
-import com.tp.udde.domain.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;

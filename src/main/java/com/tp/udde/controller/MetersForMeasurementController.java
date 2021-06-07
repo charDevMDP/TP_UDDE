@@ -13,7 +13,7 @@ public class MetersForMeasurementController {
     private MetersForMeasurementService metersForMeasurementService;
 
     public MetersForMeasurement addMeterForMeasurement(Meter meter, Measurement measurement) {
-        if(!meter.equals(null) && !measurement.equals(null)){
+        if(meter != null && measurement != null){
             MetersForMeasurement  metersForMeasurement = new MetersForMeasurement();
             metersForMeasurement.setMeasurement(measurement);
             metersForMeasurement.setMeters(meter);
