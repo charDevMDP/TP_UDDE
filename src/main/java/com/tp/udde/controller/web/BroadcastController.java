@@ -27,7 +27,6 @@ public class BroadcastController {
         this.metersForMeasurementController = metersForMeasurementController;
     }
 
-
     @PostMapping(value = "measurements")
     public void addMeasurement(@RequestBody MeasurementDto measurementDto) {
         if (measurementDto != null) {

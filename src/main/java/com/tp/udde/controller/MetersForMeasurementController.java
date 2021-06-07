@@ -11,8 +11,13 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class MetersForMeasurementController {
 
+
+    private final MetersForMeasurementService metersForMeasurementService;
+
     @Autowired
-    private MetersForMeasurementService metersForMeasurementService;
+    public MetersForMeasurementController(MetersForMeasurementService metersForMeasurementService) {
+        this.metersForMeasurementService = metersForMeasurementService;
+    }
 
     public MetersForMeasurement addMeterForMeasurement(Meter meter, Measurement measurement) {
             MetersForMeasurement  metersForMeasurement = new MetersForMeasurement();
