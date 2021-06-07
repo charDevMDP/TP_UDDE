@@ -6,6 +6,8 @@ import com.tp.udde.projections.Consumption;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +56,7 @@ public class MeasurementController {
   */
 
     // lab.4 traigo consumo por rango por fechas (kwh y dinero en ese periodo)
-    public Consumption getConsumption(Integer meter_id, LocalDate firstDate, LocalDate secondDate){
+    public Consumption getConsumption(Integer meter_id, Date firstDate, Date secondDate){
         return measurementService.getConsumption(meter_id,firstDate,secondDate);
     }
 
