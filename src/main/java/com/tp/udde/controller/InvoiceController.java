@@ -1,6 +1,7 @@
 package com.tp.udde.controller;
 
 import com.tp.udde.domain.Invoice;
+import com.tp.udde.projections.InvoiceOwedAddressClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -55,9 +56,14 @@ public class InvoiceController {
 
 
     // lab.3 traigo las facturas adeudadas
-    @GetMapping("/owed")
-    public List<Invoice> getInvoicesOwed(@PathVariable Integer userId){
+    public List<Invoice> getInvoicesOwed(Integer userId){
         return  invoiceService.getInvoicesOwed(userId);
+    }
+
+    /* Backoffice **/
+    // lab.4 traigo las facturas adeudadas por el cliente y el domicilio corespondiente.
+    public List<InvoiceOwedAddressClient> getInvoicesOwedClient(Integer userId){
+        return  invoiceService.getInvoicesOwedClient(userId);
     }
 
 

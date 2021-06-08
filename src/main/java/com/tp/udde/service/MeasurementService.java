@@ -56,5 +56,10 @@ public class MeasurementService {
         return measurementRepository.getMeasurementForDate(meterId,startDate,endDate);
     }
 
+    // lab. Backoffice6
+    public List<Measurement> getMeasurementForDateForAddress(Integer idAddress, LocalDate startDate, LocalDate endDate){
+        return measurementRepository.getMeasurementForDateForAddress(idAddress,startDate,endDate);
+    }
+
 
 }

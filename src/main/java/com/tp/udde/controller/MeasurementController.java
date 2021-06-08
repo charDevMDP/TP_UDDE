@@ -79,5 +79,10 @@ public class MeasurementController {
         return measurementService.getMeasurementByDates(meter_id,firstDate,secondDate);
     }
 
+    // 6) Consulta de mediciones de un domicilio por rango de fechas
+    public List<Measurement> getMeasurementForDateForAddress(Integer idAddress, LocalDate firstDate, LocalDate secondDate){
+        return measurementService.getMeasurementForDateForAddress(idAddress,firstDate,secondDate);
+    }
+
 
 }
