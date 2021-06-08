@@ -1,6 +1,5 @@
 package com.tp.udde.projections;
 
-import com.tp.udde.domain.City;
 public interface InvoiceOwedAddressClient {
 
     String getName();
