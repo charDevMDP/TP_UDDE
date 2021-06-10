@@ -1,22 +1,15 @@
 package com.tp.udde.service;
 
-import com.tp.udde.domain.Invoice;
 import com.tp.udde.projections.Consumption;
-import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
+import com.tp.udde.projections.UserMeasurementConsumption;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.tp.udde.domain.Measurement;
 import com.tp.udde.repository.MeasurementRepository;
@@ -62,6 +55,16 @@ public class MeasurementService {
     // lab.5
     public List<Measurement> getMeasurementByDates(Integer meterId, LocalDate startDate, LocalDate endDate){
         return measurementRepository.getMeasurementForDate(meterId,startDate,endDate);
+    }
+
+    // lab. Backoffice6
+    public List<Measurement> getMeasurementForDateForAddress(Integer idAddress, LocalDate startDate, LocalDate endDate){
+        return measurementRepository.getMeasurementForDateForAddress(idAddress,startDate,endDate);
+    }
+
+    // lab. Backoffice5
+    public List<UserMeasurementConsumption> getUserForDateForConsumption(LocalDate startDate, LocalDate endDate){
+        return measurementRepository.getUserForDateForConsumption(startDate,endDate);
     }
 
 

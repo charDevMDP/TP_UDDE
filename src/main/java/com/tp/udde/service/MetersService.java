@@ -35,6 +35,11 @@ public class MetersService {
         return meterRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
     }
 
+    public Meter getByMeterNumberAndPass(String  number, String password) {
+        return this.meterRepository.getByMeterNumberAndPass(number,password);
+    }
+
+
     public Meter update(Integer id, Meter meters) {
         Optional<Meter> measurerFind = meterRepository.findById(id);
         if (measurerFind.isPresent()) {
@@ -44,4 +49,6 @@ public class MetersService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+
 }

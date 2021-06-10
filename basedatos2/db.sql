@@ -170,3 +170,32 @@ INSERT Into measurements (date,id_invoice,kwh) values ('2020-05-01', 1,20);
 // mediciones x medidores
 INSERT into meters_for_measurement (id_measurement,id_meters) values (1,1);
 INSERT into meters_for_measurement (id_measurement,id_meters) values (2,1);
+
+
+/*Consulta 10 clientes más consumidores en un rango de fechas*/
+/*SELECT firs.id AS Id, firs.name AS Name, firs.surname AS Surname, firs.consum as Consumption
+FROM( SELECT us.*, MAX(mea.kwh) - MIN(mea.kwh) AS consum
+FROM users us INNER JOIN addresses ad ON ad.id_user = us.id
+INNER JOIN meters mt ON mt.id_address = ad.id
+INNER JOIN meters_for_measurement mfm ON mfm.id_meters = mt.id
+INNER JOIN measurements mea ON mea.id = mfm.id_measurement
+WHERE mea.date BETWEEN "2021-05-06" AND "2021-06-08"
+GROUP BY us.id) AS firs
+GROUP BY firs.id, firs.consum
+ORDER BY SUM(consum) DESC LIMIT 10*/
+
+/*Consulta 10 clientes más consumidores en un rango de fechas*/
+SELECT c.*, SUM(mea.kwh) FROM users c
+INNER JOIN addresses ad ON ad.id_user = c.id
+INNER JOIN meters mt ON mt.id_address = ad.id
+INNER JOIN meters_for_measurement mfm ON mfm.id_meters = mt.id
+INNER JOIN measurements mea ON mea.id = mfm.id_measurement
+WHERE mea.date BETWEEN "2020-04-06" AND "2020-05-08"
+GROUP BY c.id
+ORDER BY SUM(mea.kwh) DESC LIMIT 10;
+
+SELECT c.*, SUM(mea.kwh) AS Consumption, ad.name AS NameAddress, ad.number AS NumberAddress, ad.department AS DepartmentAddress FROM users c
+INNER JOIN addresses ad ON ad.id_user = c.id INNER JOIN meters mt ON mt.id_address = ad.id
+INNER JOIN meters_for_measurement mfm ON mfm.id_meters = mt.id
+INNER JOIN measurements mea ON mea.id = mfm.id_measurement
+WHERE mea.date BETWEEN "2021-06-01" AND "2021-06-08" AND c.user_type = "CLIENT" GROUP BY c.id ORDER BY SUM(mea.kwh) DESC LIMIT 10
