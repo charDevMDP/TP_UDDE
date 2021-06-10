@@ -51,13 +51,6 @@ public class LoginController {
         return ResponseEntity.ok(LoginResponseDto.builder().token(this.generateToken(dto)).build());
     }
 
-
-    /*@PostMapping(value = "logout")
-    public ResponseEntity logout(Authentication auth) {
-        this.sessionManager.removeSession(auth);
-        return ResponseEntity.ok().build();
-    }*/
-
     @GetMapping(value = "api/userDetails")
     public ResponseEntity<User> userDetails(@RequestBody Authentication token) {
         return ResponseEntity.ok((User) token.getPrincipal());

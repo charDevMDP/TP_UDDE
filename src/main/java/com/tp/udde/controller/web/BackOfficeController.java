@@ -139,7 +139,7 @@ public class BackOfficeController {
         }
     }
 
-    // lab.5 traigo las mediciones de entre fechas
+    // 5) Consulta 10 clientes más consumidores en un rango de fechas.
     @GetMapping(value ="/measurements/consumptions/")
     public ResponseEntity<List<UserMeasurementConsumption>> getUserForDateForConsumption(
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,

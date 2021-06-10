@@ -172,7 +172,7 @@ INSERT into meters_for_measurement (id_measurement,id_meters) values (1,1);
 INSERT into meters_for_measurement (id_measurement,id_meters) values (2,1);
 
 
-Consulta 10 clientes más consumidores en un rango de fechas
+/*Consulta 10 clientes más consumidores en un rango de fechas*/
 SELECT firs.id AS Id, firs.name AS Name, firs.surname AS Surname, firs.consum as Consumption
 FROM( SELECT us.*, MAX(mea.kwh) - MIN(mea.kwh) AS consum
 FROM users us INNER JOIN addresses ad ON ad.id_user = us.id
