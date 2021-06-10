@@ -6,6 +6,7 @@ import com.tp.udde.controller.UserController;
 import com.tp.udde.domain.Invoice;
 import com.tp.udde.domain.Measurement;
 import com.tp.udde.domain.User;
+import com.tp.udde.exception.ClientNotExistsException;
 import com.tp.udde.projections.Consumption;
 import com.tp.udde.projections.MeterUser;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +56,7 @@ public class ClientController {
             @PathVariable Integer id,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate
-    ){
+    ) throws ClientNotExistsException {
 
         List<Invoice> invoices =  invoiceController.getInvoiceBetweenDates(id, firstDate,secondDate);
         if(invoices!=null){
@@ -72,10 +73,11 @@ public class ClientController {
     @GetMapping("/invoices/{id}/owed")
     public ResponseEntity<List<Invoice>> getInvoicesOwed(@PathVariable Integer id){
         List<Invoice> invoices =  invoiceController.getInvoicesOwed(id);
-        if(invoices!=null){
+        if(!invoices.isEmpty()){
             return ResponseEntity.ok(invoices);
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            //return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); en caso de que el id de clienta no exista
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
     }
 
