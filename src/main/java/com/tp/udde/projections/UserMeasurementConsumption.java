@@ -6,4 +6,7 @@ public interface UserMeasurementConsumption {
     String getName();
     String getSurname();
     float getConsumption();
+    String getNameAddress();
+    int getNumberAddress();
+    int getDepartmentAddress();
 }
