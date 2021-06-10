@@ -1,6 +1,7 @@
 package com.tp.udde.service;
 
 import com.tp.udde.projections.Consumption;
+import com.tp.udde.projections.UserMeasurementConsumption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
@@ -59,6 +60,11 @@ public class MeasurementService {
     // lab. Backoffice6
     public List<Measurement> getMeasurementForDateForAddress(Integer idAddress, LocalDate startDate, LocalDate endDate){
         return measurementRepository.getMeasurementForDateForAddress(idAddress,startDate,endDate);
+    }
+
+    // lab. Backoffice5
+    public List<UserMeasurementConsumption> getUserForDateForConsumption(LocalDate startDate, LocalDate endDate){
+        return measurementRepository.getUserForDateForConsumption(startDate,endDate);
     }
 
 

@@ -4,6 +4,7 @@ package com.tp.udde.controller.web;
 import com.tp.udde.controller.*;
 import com.tp.udde.domain.*;
 import com.tp.udde.projections.InvoiceOwedAddressClient;
+import com.tp.udde.projections.UserMeasurementConsumption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -124,7 +125,7 @@ public class BackOfficeController {
         }
     }
 
-    // lab.5 traigo las mediciones de entre fechas
+    // lab.6 traigo las mediciones de entre fechas
     @GetMapping(value ="/measurements/address/{id}")
     public ResponseEntity<List<Measurement>> getMeasurementForDateForAddress(
             @PathVariable Integer id,
@@ -137,6 +138,22 @@ public class BackOfficeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    // lab.5 traigo las mediciones de entre fechas
+    @GetMapping(value ="/measurements/consumptions/")
+    public ResponseEntity<List<UserMeasurementConsumption>> getUserForDateForConsumption(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate){
+        List<UserMeasurementConsumption> userMeasurementConsumptions =  this.measurementController.getUserForDateForConsumption(firstDate,secondDate);
+        if(userMeasurementConsumptions!=null){
+            return ResponseEntity.ok(userMeasurementConsumptions);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+
+
 
 
 

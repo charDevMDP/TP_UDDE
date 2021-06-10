@@ -3,6 +3,7 @@ package com.tp.udde.controller;
 
 import com.tp.udde.domain.Measurement;
 import com.tp.udde.domain.dto.MeasurementDto;
+import com.tp.udde.projections.UserMeasurementConsumption;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.text.ParseException;
@@ -84,5 +85,9 @@ public class MeasurementController {
         return measurementService.getMeasurementForDateForAddress(idAddress,firstDate,secondDate);
     }
 
+    // 5) Consulta 10 clientes más consumidores en un rango de fechas.
+    public List<UserMeasurementConsumption> getUserForDateForConsumption(LocalDate firstDate, LocalDate secondDate){
+        return measurementService.getUserForDateForConsumption(firstDate,secondDate);
+    }
 
 }
