@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +20,7 @@ public class RateController {
     private RateService rateService;
 
     // traigo todos
-    public List<Rate> getRates() { return this.rateService.getAll();}
+    public Page<Rate> getRates(Pageable pageable) { return this.rateService.getAll(pageable);}
 
     // agrego uno
     public Rate addRate(@RequestBody Rate rate) {return rateService.add(rate);}

@@ -1,6 +1,8 @@
 package com.tp.udde.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,9 +20,8 @@ public class RateService {
     @Autowired
     private RateRepository rateRepository;
 
-    public List<Rate> getAll() {
-        List<Rate> rates = rateRepository.findAll();
-        return rates;
+    public Page<Rate> getAll(Pageable pageable) {
+        return rateRepository.getAll(pageable);
     }
 
     public void deleteByIdRate(Integer id) {

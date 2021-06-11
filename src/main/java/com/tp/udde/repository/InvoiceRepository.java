@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 
+
     // lab.2
     @Query(value = "SELECT * FROM INVOICES WHERE date_invoice BETWEEN ?2 AND ?3 AND id_user = ?1", nativeQuery = true)
     List<Invoice> findInvoiceBetweenDates(Integer user, LocalDate startDate, LocalDate endDate);

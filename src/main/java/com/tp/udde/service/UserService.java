@@ -29,13 +29,12 @@ public class UserService {
     UserRepository userRepository;
 
 
-    public Page<User> getAll(Integer size, Integer page) {
-        Pageable pageable = PageRequest.of(size,page);
-        return userRepository.findAll(pageable);
+    public Page<User> getAll(Pageable pageable) {
+        return userRepository.getUsers(pageable);
     }
 
     public User login(String username, String password) throws UserException {
-        User user = userRepository.getByUsername(username, password);;
+        User user = userRepository.getByUsernameAndPassword(username, password);;
         return Optional.ofNullable(user).orElseThrow(() -> new UserException("User not exists"));
     }
 
