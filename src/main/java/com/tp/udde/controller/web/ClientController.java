@@ -5,7 +5,6 @@ import com.tp.udde.controller.MeasurementController;
 import com.tp.udde.controller.UserController;
 import com.tp.udde.domain.Invoice;
 import com.tp.udde.domain.Measurement;
-import com.tp.udde.domain.User;
 import com.tp.udde.projections.Consumption;
 import com.tp.udde.projections.MeterUser;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 

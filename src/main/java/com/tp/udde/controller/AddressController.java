@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +26,7 @@ public class AddressController {
     }
 
     // traigo todos
-    public List<Address> getAll() { return addressService.getAll();}
+    public Page<Address> getAll(Pageable pageable) { return addressService.getAll(pageable);}
 
     // traigo uno
     public Address getById(@PathVariable Integer id) {

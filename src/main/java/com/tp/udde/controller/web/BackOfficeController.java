@@ -1,17 +1,21 @@
 package com.tp.udde.controller.web;
 
-
 import com.tp.udde.controller.*;
 import com.tp.udde.domain.*;
+import com.tp.udde.exception.NonExistentException;
 import com.tp.udde.projections.InvoiceOwedAddressClient;
 import com.tp.udde.projections.UserMeasurementConsumption;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.tp.udde.utils.ResponsePage.response;
 
 @RestController
 @RequestMapping(value = "/backoffice")
@@ -35,20 +39,25 @@ public class BackOfficeController {
     }
 
     @GetMapping(value = "/users")
-    public List<User> getUsers() {
-        return this.userController.getUsers();
+    public ResponseEntity<List<User>> getUsers(Pageable pageable) {
+        Page<User> users = this.userController.getUsers(pageable);
+        return response(users);
     }
-
 
     //Rates**
     @GetMapping(value = "/rates")
-    public List<Rate> getRates(){ return this.rateController.getRates();}
+    public ResponseEntity<List<Rate>> getRates(Pageable pageable){
+        Page<Rate> rate = this.rateController.getRates(pageable);
+        return response(rate);}
 
     @PostMapping(value = "/rate")//2) Alta de tarifas.
     public Rate addRate(@RequestBody Rate rate) {return this.rateController.addRate(rate);}
 
     @DeleteMapping(value = "/rate/{id}")//2) Baja de tarifas.
-    public void deleteById(@PathVariable Integer id) {this.rateController.deleteByIdRate(id);}
+    public ResponseEntity<String> deleteById(@PathVariable Integer id) throws NonExistentException {
+        this.rateController.deleteByIdRate(id);
+        return ResponseEntity.accepted().build();
+    }
 
     @PutMapping(value = "/rate/{id}")//2) Modificación de tarifas.
     public Rate replaceRate(@PathVariable Integer id, @RequestBody Rate rate) {return this.rateController.replaceRate(id, rate);}
@@ -56,7 +65,9 @@ public class BackOfficeController {
 
     //Address**
     @GetMapping(value = "address")
-    public List<Address> getAll() { return this.addressController.getAll(); }
+    public ResponseEntity<List<Address>> getAll(Pageable pageable){
+        Page<Address> address = this.addressController.getAll(pageable);
+        return response(address); }
 
     @PostMapping(value = "address")
     public Address addAddress(@RequestBody Address address) {
@@ -64,8 +75,8 @@ public class BackOfficeController {
     }
 
     @GetMapping("address/{id}")
-    public Address getById(@PathVariable Integer id) {
-        return addressController.getById(id);
+    public  ResponseEntity<Address> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(addressController.getById(id));
     }
 
     @PutMapping("address/{id}")
@@ -74,15 +85,17 @@ public class BackOfficeController {
     }
 
     @DeleteMapping("address/{id}")
-    public void deleteByIdAddress(@PathVariable Integer id) {
-        addressController.deleteByIdAddress(id);
+    public ResponseEntity<String> deleteByIdAddress(@PathVariable Integer id) throws NonExistentException {
+        this.addressController.deleteByIdAddress(id);
+        return ResponseEntity.accepted().build();
     }
     //**
 
     //Meter**
     @GetMapping(value = "meter")
-    public List<Meter> getAllMeter() {
-        return meterController.getAllMeter();
+    public ResponseEntity<List<Meter>> getAllMeter(Pageable pageable) {
+        Page<Meter> meters = this.meterController.getAllMeter(pageable);
+        return response(meters);
     }
 
     @GetMapping(value ="meter/{id}")

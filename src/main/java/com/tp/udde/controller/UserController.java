@@ -9,6 +9,8 @@ import com.tp.udde.exception.ValidationException;
 import com.tp.udde.projections.MeterUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import com.tp.udde.service.UserService;
 import java.lang.reflect.Type;
@@ -69,9 +71,9 @@ public class UserController {
         }
     }
 
-    public List<User> getUsers()
+    public Page<User> getUsers(Pageable pageable)
     {
-        return userService.getAll();
+        return userService.getAll(pageable);
     }
 
     public MeterUser meterofuser(Integer idUser) {

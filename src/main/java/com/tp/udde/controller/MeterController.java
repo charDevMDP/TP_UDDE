@@ -3,6 +3,8 @@ package com.tp.udde.controller;
 import com.tp.udde.domain.Meter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import com.tp.udde.service.MetersService;
 
@@ -15,8 +17,8 @@ public class MeterController {
     private MetersService metersService;
 
     // traigo todos
-    public List<Meter> getAllMeter() {
-        return metersService.getAll();
+    public Page<Meter> getAllMeter(Pageable pageable) {
+        return metersService.getAll(pageable);
     }
 
     // traigo uno
