@@ -6,14 +6,19 @@ import com.tp.udde.controller.UserController;
 import com.tp.udde.domain.Invoice;
 import com.tp.udde.domain.Measurement;
 import com.tp.udde.domain.User;
+import com.tp.udde.exception.ClientNotExists;
+import com.tp.udde.exception.RestResponseEntityExceptionHandler;
 import com.tp.udde.projections.Consumption;
 import com.tp.udde.projections.MeterUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +28,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/client")
+@Slf4j
 public class ClientController {
 
     private final UserController userController ;
@@ -34,6 +40,13 @@ public class ClientController {
         this.userController = userController;
         this.invoiceController = invoiceController;
         this.measurementController = measurementController;
+    }
+
+
+    // traigo uno
+    @GetMapping("/{id}")
+    public User getById(@PathVariable Integer id){
+         return userController.getById(id);
     }
 
     // traigo el medidor de un usuario
@@ -54,15 +67,21 @@ public class ClientController {
             @PathVariable Integer id,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate
-    ){
+    ) {
 
-        List<Invoice> invoices =  invoiceController.getInvoiceBetweenDates(id, firstDate,secondDate);
-        if(invoices!=null){
-            return ResponseEntity.ok(invoices);
+        User user = getById(id);
+        log.info(String.valueOf(user));
+        if(user != null){
+            List<Invoice> invoices =  invoiceController.getInvoiceBetweenDates(id, firstDate,secondDate);
+            if(invoices!=null){
+                return ResponseEntity.ok(invoices);
+            }else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            //throw new ResponseStatusException(HttpStatus.NOT_FOUND,"El usuario no existe");
         }
-
     }
 
 

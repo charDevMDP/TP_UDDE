@@ -27,6 +27,8 @@ public class UserController {
         this.modelMapper = modelMapper;
         this.userService = userService;
     }
+
+
     /*
     // agrego uno
     @PostMapping
@@ -40,11 +42,7 @@ public class UserController {
         return userService.getAll();
     }
 
-    // traigo uno
-    @GetMapping("/{id}")
-    public User getById(@PathVariable Integer id) {
-        return userService.getById(id);
-    }
+
 
     // actualizo
     @PutMapping("/{id}")
@@ -58,6 +56,10 @@ public class UserController {
         userService.deleteById(id);
     }*/
 
+    // traigo uno
+    public User getById(Integer id) {
+        return userService.getById(id);
+    }
 
     public UserDto login(String username, String password) throws UserException, ValidationException, InvalidLoginException {
         if ((username != null) && (password != null)) {
