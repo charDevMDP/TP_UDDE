@@ -30,7 +30,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 */
     @ExceptionHandler({ClientNotExists.class})
-    public ResponseEntity<ApiError> ClientNotExist( ClientNotExists ex, WebRequest request){
+    public ResponseEntity<ApiError> ClientNotExists(ClientNotExists ex, WebRequest request){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body( new ApiError(HttpStatus.NOT_FOUND,ex.getMessage()));
     }
 

@@ -3,6 +3,7 @@ package com.tp.udde.controller;
 import com.tp.udde.domain.User;
 
 import com.tp.udde.domain.dto.UserDto;
+import com.tp.udde.exception.ClientNotExists;
 import com.tp.udde.exception.InvalidLoginException;
 import com.tp.udde.exception.UserException;
 import com.tp.udde.exception.ValidationException;
@@ -57,7 +58,7 @@ public class UserController {
     }*/
 
     // traigo uno
-    public User getById(Integer id) {
+    public User getById(Integer id) throws ClientNotExists {
         return userService.getById(id);
     }
 
@@ -65,7 +66,7 @@ public class UserController {
         if ((username != null) && (password != null)) {
             User user = userService.login(username, password);
 
-                return  modelMapper.map(user, (Type) UserDto.class);
+            return  modelMapper.map(user, (Type) UserDto.class);
         } else {
             return (UserDto) Optional.ofNullable(null).orElseThrow(() -> new ValidationException("Username and password must have a value"));
         }
