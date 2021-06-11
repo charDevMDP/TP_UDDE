@@ -5,7 +5,10 @@ import com.tp.udde.controller.*;
 import com.tp.udde.domain.*;
 import com.tp.udde.projections.InvoiceOwedAddressClient;
 import com.tp.udde.projections.UserMeasurementConsumption;
+import com.tp.udde.utils.ResponsePage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +38,19 @@ public class BackOfficeController {
     }
 
     @GetMapping(value = "/users")
-    public List<User> getUsers() {
-        return this.userController.getUsers();
+    public ResponseEntity<List<User>> getUsers(@RequestParam(value = "size", defaultValue = "20") Integer size,
+                               @RequestParam(value = "page", defaultValue = "1") Integer page) {
+        Page<User> usersPage = this.userController.getUsers(size, page);
+        return response(usersPage);
+    }
+
+    private ResponseEntity response(Page page) {
+        HttpStatus httpStatus = page.getContent().isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+        return ResponseEntity.
+                status(httpStatus).
+                header("X-Total-Count", Long.toString(page.getTotalElements())).
+                header("X-Total-Pages", Long.toString(page.getTotalPages())).
+                body(page.getContent());
     }
 
 
