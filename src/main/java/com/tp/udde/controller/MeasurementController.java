@@ -12,6 +12,9 @@ import com.tp.udde.projections.Consumption;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import com.tp.udde.service.MeasurementService;
 
@@ -76,18 +79,18 @@ public class MeasurementController {
     }
 
     // lab.5 traigo las mediciones de entre fechas
-    public List<Measurement> getMeasurementBetweenDates(Integer meter_id, LocalDate firstDate, LocalDate secondDate){
-        return measurementService.getMeasurementByDates(meter_id,firstDate,secondDate);
+    public Page<Measurement> getMeasurementBetweenDates(Pageable pageable, Integer meter_id, LocalDate firstDate, LocalDate secondDate){
+        return measurementService.getMeasurementByDates(pageable, meter_id,firstDate,secondDate);
     }
 
     // 6) Consulta de mediciones de un domicilio por rango de fechas
-    public List<Measurement> getMeasurementForDateForAddress(Integer idAddress, LocalDate firstDate, LocalDate secondDate){
-        return measurementService.getMeasurementForDateForAddress(idAddress,firstDate,secondDate);
+    public Page<Measurement> getMeasurementForDateForAddress(Pageable pageable, Integer idAddress, LocalDate firstDate, LocalDate secondDate){
+        return measurementService.getMeasurementForDateForAddress(pageable, idAddress,firstDate,secondDate);
     }
 
     // 5) Consulta 10 clientes más consumidores en un rango de fechas.
-    public List<UserMeasurementConsumption> getUserForDateForConsumption(LocalDate firstDate, LocalDate secondDate){
-        return measurementService.getUserForDateForConsumption(firstDate,secondDate);
+    public Page<UserMeasurementConsumption> getUserForDateForConsumption(Pageable pageable, LocalDate firstDate, LocalDate secondDate){
+        return measurementService.getUserForDateForConsumption(pageable,firstDate,secondDate);
     }
 
 }

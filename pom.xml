@@ -102,8 +102,8 @@
 					<excludes>
 						<!-- Exclude full package from test coverage
 						com.chardev.news.model-->
-						<exclude>**/*com/chardev/news/model/**</exclude>
-						<exclude>**/*com/chardev/news/exceptions/**</exclude>
+						<exclude>**/*com/tp/udde/domain/**</exclude>
+						<exclude>**/*com/tp/udde/exceptions/**</exclude>
 					</excludes>
 				</configuration>
 

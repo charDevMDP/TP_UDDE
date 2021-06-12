@@ -48,22 +48,28 @@ public class ClientControllerTest {
     UserController userController;
     UserService userService;
     ClientController clientController;
+    MeasurementController measurementController;
+    InvoiceController invoiceController;
 
     @BeforeEach
     public void setUp(){
         userController = mock(UserController.class);
         userService = mock(UserService.class);
+        invoiceController = mock(InvoiceController.class);
+        measurementController = mock(MeasurementController.class);
+
+        clientController = new ClientController(userController,invoiceController,measurementController);
     }
 
     @Test
     public void getClientOKTest() throws ClientNotExists {
         //given
         User user = createUser();
+        when(userService.getById(anyInt())).thenReturn(user);
+        when(userController.getById(anyInt())).thenReturn(user);
 
         //when
-        when(userController.getById(anyInt())).thenReturn(user);
-        when(userService.getById(anyInt())).thenReturn(user);
-        ResponseEntity<User> responseEntity = clientController.getById(user.getId());
+        ResponseEntity<User> responseEntity = clientController.getById(1);
 
         //then
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());

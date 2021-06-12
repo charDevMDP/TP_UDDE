@@ -3,6 +3,8 @@ package com.tp.udde.service;
 import com.tp.udde.projections.Consumption;
 import com.tp.udde.projections.UserMeasurementConsumption;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
@@ -53,18 +55,18 @@ public class MeasurementService {
     }
 
     // lab.5
-    public List<Measurement> getMeasurementByDates(Integer meterId, LocalDate startDate, LocalDate endDate){
-        return measurementRepository.getMeasurementForDate(meterId,startDate,endDate);
+    public Page<Measurement> getMeasurementByDates(Pageable pageable, Integer meterId, LocalDate startDate, LocalDate endDate){
+        return measurementRepository.getMeasurementForDate(pageable, meterId,startDate,endDate);
     }
 
     // lab. Backoffice6
-    public List<Measurement> getMeasurementForDateForAddress(Integer idAddress, LocalDate startDate, LocalDate endDate){
-        return measurementRepository.getMeasurementForDateForAddress(idAddress,startDate,endDate);
+    public Page<Measurement> getMeasurementForDateForAddress(Pageable pageable, Integer idAddress, LocalDate startDate, LocalDate endDate){
+        return measurementRepository.getMeasurementForDateForAddress(pageable, idAddress,startDate,endDate);
     }
 
     // lab. Backoffice5
-    public List<UserMeasurementConsumption> getUserForDateForConsumption(LocalDate startDate, LocalDate endDate){
-        return measurementRepository.getUserForDateForConsumption(startDate,endDate);
+    public Page<UserMeasurementConsumption> getUserForDateForConsumption(Pageable pageable, LocalDate startDate, LocalDate endDate){
+        return measurementRepository.getUserForDateForConsumption(pageable, startDate,endDate);
     }
 
 

@@ -3,6 +3,8 @@ package com.tp.udde.service;
 import com.tp.udde.projections.InvoiceOwedAddressClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
@@ -52,18 +54,19 @@ public class InvoiceService {
     }
 
     // lab.2
-    public List<Invoice> getInvoiceBetweenDates(Integer userId, LocalDate startDate, LocalDate endDate){
-        return invoiceRepository.findInvoiceBetweenDates(userId, startDate,endDate);
+    public Page<Invoice> getInvoiceBetweenDates(Pageable pageable,Integer userId, LocalDate startDate, LocalDate endDate){
+        return invoiceRepository.findInvoiceBetweenDates(pageable,userId, startDate,endDate);
     }
 
     // lab.3
-    public List<Invoice> getInvoicesOwed(Integer userId){
-        return invoiceRepository.getInvoicesOwed(userId);
+    public Page<Invoice> getInvoicesOwed(Pageable pageable,Integer userId){
+
+        return invoiceRepository.getInvoicesOwed(pageable,userId);
     }
 
     // lab.4
-    public List<InvoiceOwedAddressClient> getInvoicesOwedClient(Integer userId){
-        return invoiceRepository.getInvoicesOwedClient(userId);
+    public Page<InvoiceOwedAddressClient> getInvoicesOwedClient(Pageable pageable,Integer userId){
+        return invoiceRepository.getInvoicesOwedClient(pageable,userId);
     }
 
 }
