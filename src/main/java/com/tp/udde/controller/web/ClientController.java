@@ -9,8 +9,11 @@ import com.tp.udde.domain.User;
 import com.tp.udde.exception.ClientNotExists;
 import com.tp.udde.projections.Consumption;
 import com.tp.udde.projections.MeterUser;
+import com.tp.udde.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+
+import static com.tp.udde.utils.ResponsePage.response;
 
 
 @RestController
@@ -61,15 +66,15 @@ public class ClientController {
     public ResponseEntity<List<Invoice>> getInvoiceBetweenDates(
             @PathVariable Integer id,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate,
+            Pageable pageable
     ) throws ClientNotExists {
-
         User user =  userController.getById(id); // veo primero si el usuario existe
         if(user != null){
-            List<Invoice> invoices =  invoiceController.getInvoiceBetweenDates(id, firstDate,secondDate);
+            Page<Invoice> invoices =  invoiceController.getInvoiceBetweenDates(pageable, id, firstDate,secondDate);
             if(invoices!=null){
-                if(invoices.size() == 0){  return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); }
-                return ResponseEntity.ok(invoices);
+                if(invoices.isEmpty()){  return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); }
+                return response(invoices);
             }else{
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
@@ -82,13 +87,13 @@ public class ClientController {
     // lab.3 traigo las facturas adeudadas
     @PreAuthorize(value= "hasAuthority('BACKOFFICE') or authentication.principal.id.equals(#id)")
     @GetMapping("/invoices/{id}/owed")
-    public ResponseEntity<List<Invoice>> getInvoicesOwed(@PathVariable Integer id) throws ClientNotExists {
+    public ResponseEntity<List<Invoice>> getInvoicesOwed( @PathVariable Integer id,Pageable pageable) throws ClientNotExists {
         User user =  userController.getById(id);
         if(user != null){
-            List<Invoice> invoices =  invoiceController.getInvoicesOwed(id);
+            Page<Invoice> invoices =  invoiceController.getInvoicesOwed(pageable,id);
             if(invoices!=null){
-                if(invoices.size() == 0){  return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); }
-                return ResponseEntity.ok(invoices);
+                if(invoices.isEmpty()){  return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); }
+                return response(invoices);
             }else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
@@ -126,15 +131,15 @@ public class ClientController {
     public ResponseEntity<List<Measurement>> getMeasurementBetweenDates(
             @PathVariable Integer id,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate
-
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate,
+            Pageable pageable
     ) throws ClientNotExists {
         User user =  userController.getById(id);
         if(user != null) {
             MeterUser meterUser = userController.meterofuser(id);
-            List<Measurement> measurements = measurementController.getMeasurementBetweenDates(meterUser.getNumberMeter(), firstDate, secondDate);
+            Page<Measurement> measurements = measurementController.getMeasurementBetweenDates(pageable, meterUser.getNumberMeter(), firstDate, secondDate);
             if (measurements != null) {
-                return ResponseEntity.ok(measurements);
+                return response(measurements);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
