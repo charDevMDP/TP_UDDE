@@ -3,12 +3,15 @@ package com.tp.udde.controller;
 import com.tp.udde.domain.User;
 
 import com.tp.udde.domain.dto.UserDto;
+import com.tp.udde.exception.ClientNotExists;
 import com.tp.udde.exception.InvalidLoginException;
 import com.tp.udde.exception.UserException;
 import com.tp.udde.exception.ValidationException;
 import com.tp.udde.projections.MeterUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import com.tp.udde.service.UserService;
 import java.lang.reflect.Type;
@@ -27,6 +30,8 @@ public class UserController {
         this.modelMapper = modelMapper;
         this.userService = userService;
     }
+
+
     /*
     // agrego uno
     @PostMapping
@@ -40,11 +45,7 @@ public class UserController {
         return userService.getAll();
     }
 
-    // traigo uno
-    @GetMapping("/{id}")
-    public User getById(@PathVariable Integer id) {
-        return userService.getById(id);
-    }
+
 
     // actualizo
     @PutMapping("/{id}")
@@ -58,20 +59,24 @@ public class UserController {
         userService.deleteById(id);
     }*/
 
+    // traigo uno
+    public User getById(Integer id) throws ClientNotExists {
+        return userService.getById(id);
+    }
 
     public UserDto login(String username, String password) throws UserException, ValidationException, InvalidLoginException {
         if ((username != null) && (password != null)) {
             User user = userService.login(username, password);
 
-                return  modelMapper.map(user, (Type) UserDto.class);
+            return  modelMapper.map(user, (Type) UserDto.class);
         } else {
             return (UserDto) Optional.ofNullable(null).orElseThrow(() -> new ValidationException("Username and password must have a value"));
         }
     }
 
-    public List<User> getUsers()
+    public Page<User> getUsers(Pageable pageable)
     {
-        return userService.getAll();
+        return userService.getAll(pageable);
     }
 
     public MeterUser meterofuser(Integer idUser) {

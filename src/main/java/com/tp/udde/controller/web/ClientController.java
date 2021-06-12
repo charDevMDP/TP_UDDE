@@ -6,23 +6,24 @@ import com.tp.udde.controller.UserController;
 import com.tp.udde.domain.Invoice;
 import com.tp.udde.domain.Measurement;
 import com.tp.udde.domain.User;
+import com.tp.udde.exception.ClientNotExists;
 import com.tp.udde.projections.Consumption;
 import com.tp.udde.projections.MeterUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 
 @RestController
 @RequestMapping(value = "/client")
+@Slf4j
 public class ClientController {
 
     private final UserController userController ;
@@ -34,6 +35,13 @@ public class ClientController {
         this.userController = userController;
         this.invoiceController = invoiceController;
         this.measurementController = measurementController;
+    }
+
+    //traigo uno
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getById(@PathVariable Integer id) throws ClientNotExists{
+         User user = userController.getById(id);
+            return ResponseEntity.ok(user);
     }
 
     // traigo el medidor de un usuario
@@ -48,31 +56,42 @@ public class ClientController {
     }
 
     // lab.2 traigo las facturas entre fechas
-    @PreAuthorize(value= "hasAuthority('CLIENT') and authentication.principal.id.equals(#id)")
+    @PreAuthorize(value= "hasAuthority('BACKOFFICE') or authentication.principal.id.equals(#id)")
     @GetMapping("/invoices/{id}")
     public ResponseEntity<List<Invoice>> getInvoiceBetweenDates(
             @PathVariable Integer id,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate
-    ){
+    ) throws ClientNotExists {
 
-        List<Invoice> invoices =  invoiceController.getInvoiceBetweenDates(id, firstDate,secondDate);
-        if(invoices!=null){
-            return ResponseEntity.ok(invoices);
+        User user =  userController.getById(id); // veo primero si el usuario existe
+        if(user != null){
+            List<Invoice> invoices =  invoiceController.getInvoiceBetweenDates(id, firstDate,secondDate);
+            if(invoices!=null){
+                if(invoices.size() == 0){  return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); }
+                return ResponseEntity.ok(invoices);
+            }else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-
     }
 
 
     // lab.3 traigo las facturas adeudadas
-    @PreAuthorize(value= "hasAuthority('CLIENT') and authentication.principal.id.equals(#id)")
+    @PreAuthorize(value= "hasAuthority('BACKOFFICE') or authentication.principal.id.equals(#id)")
     @GetMapping("/invoices/{id}/owed")
-    public ResponseEntity<List<Invoice>> getInvoicesOwed(@PathVariable Integer id){
-        List<Invoice> invoices =  invoiceController.getInvoicesOwed(id);
-        if(invoices!=null){
-            return ResponseEntity.ok(invoices);
+    public ResponseEntity<List<Invoice>> getInvoicesOwed(@PathVariable Integer id) throws ClientNotExists {
+        User user =  userController.getById(id);
+        if(user != null){
+            List<Invoice> invoices =  invoiceController.getInvoicesOwed(id);
+            if(invoices!=null){
+                if(invoices.size() == 0){  return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); }
+                return ResponseEntity.ok(invoices);
+            }else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -80,32 +99,45 @@ public class ClientController {
 
 
     // lab.4 traigo consumo por rango por fechas (kwh y dinero en ese periodo)
+    @PreAuthorize(value= "hasAuthority('BACKOFFICE') or authentication.principal.id.equals(#id)")
     @GetMapping("/consumption/{id}")
     public ResponseEntity<Consumption> getConsumption(
             @PathVariable Integer id,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate
-    ){
-        MeterUser meterUser = userController.meterofuser(id);
-        Consumption consumption = measurementController.getConsumption(meterUser.getNumberMeter(),firstDate,secondDate);
-        if(consumption!=null){
-            return ResponseEntity.ok(consumption);
+    ) throws ClientNotExists {
+        User user =  userController.getById(id);
+        if(user != null) {
+            MeterUser meterUser = userController.meterofuser(id);
+            Consumption consumption = measurementController.getConsumption(meterUser.getNumberMeter(), firstDate, secondDate);
+            if (consumption.getPriceTotal() != null || consumption.getTotalKwh() != null) {
+                return ResponseEntity.ok(consumption);
+            } else {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
     // lab.5 traigo las mediciones de entre fechas
-    @GetMapping("/measurement/{id}")
+    @PreAuthorize(value= "hasAuthority('BACKOFFICE') or authentication.principal.id.equals(#id)")
+    @GetMapping("/measurements/{id}")
     public ResponseEntity<List<Measurement>> getMeasurementBetweenDates(
             @PathVariable Integer id,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate
-    ){
-        MeterUser meterUser = userController.meterofuser(id);
-        List<Measurement> measurements =  measurementController.getMeasurementBetweenDates(meterUser.getNumberMeter(),firstDate,secondDate);
-        if(measurements!=null){
-            return ResponseEntity.ok(measurements);
+
+    ) throws ClientNotExists {
+        User user =  userController.getById(id);
+        if(user != null) {
+            MeterUser meterUser = userController.meterofuser(id);
+            List<Measurement> measurements = measurementController.getMeasurementBetweenDates(meterUser.getNumberMeter(), firstDate, secondDate);
+            if (measurements != null) {
+                return ResponseEntity.ok(measurements);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

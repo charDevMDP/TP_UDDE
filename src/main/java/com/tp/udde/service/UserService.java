@@ -2,12 +2,16 @@ package com.tp.udde.service;
 
 
 
+import com.tp.udde.exception.ClientNotExists;
 import com.tp.udde.exception.UserException;
 import com.tp.udde.domain.dto.MeterUserDto;
 import com.tp.udde.projections.MeterUser;
 import com.tp.udde.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,17 +30,16 @@ public class UserService {
     UserRepository userRepository;
 
 
-    public List<User> getAll() {
-        List<User> users = (List<User>) userRepository.findAll();
-        return users;
+    public Page<User> getAll(Pageable pageable) {
+        return userRepository.getUsers(pageable);
     }
 
     public User login(String username, String password) throws UserException {
-        User user = userRepository.getByUsername(username, password);;
+        User user = userRepository.getByUsernameAndPassword(username, password);;
         return Optional.ofNullable(user).orElseThrow(() -> new UserException("User not exists"));
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Integer id) throws ClientNotExists {
         userRepository.delete(getById(id));
     }
 
@@ -44,8 +47,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getById(Integer id) {
-        return userRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+    public User getById(Integer id) throws ClientNotExists {
+         Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            return user.get();
+        }else {
+            throw new ClientNotExists();
+        }
     }
 
     public User update(Integer id, User user) {

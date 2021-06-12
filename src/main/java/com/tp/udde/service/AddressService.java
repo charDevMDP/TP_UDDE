@@ -1,6 +1,8 @@
 package com.tp.udde.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,9 +20,8 @@ public class AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-    public List<Address> getAll() {
-        List<Address> address = addressRepository.findAll();
-        return address;
+    public Page<Address> getAll(Pageable pageable) {
+      return addressRepository.getAll(pageable);
     }
 
     public void deleteById(Integer id) {
