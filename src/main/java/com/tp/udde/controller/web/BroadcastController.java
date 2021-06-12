@@ -30,7 +30,6 @@ public class BroadcastController {
     @PostMapping(value = "measurements")
     public void addMeasurement(@RequestBody MeasurementDto measurementDto) {
         if (measurementDto != null) {
-            System.out.printf(measurementDto.getSerialNumber());
             Meter meter = this.meterController.getByMeterNumberAndPass(measurementDto.getSerialNumber(), measurementDto.getPassword());
             if (meter != null) {
                 Measurement measurement = measurementController.addMeasurement(measurementDto);

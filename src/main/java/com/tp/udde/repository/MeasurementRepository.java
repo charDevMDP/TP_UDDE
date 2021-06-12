@@ -29,7 +29,7 @@ public interface MeasurementRepository extends JpaRepository<Measurement, Intege
             "inner join meters_for_measurement mm on mm.id_meters = me.id "+
             "inner join measurements mt on mt.id = mm.id "+
             "WHERE mt.date BETWEEN ?2 AND ?3 AND me.number = ?1", nativeQuery = true)
-    Consumption getConsumptionForDate(Integer meter_id, Date firstDate, Date secondDate);
+    Consumption getConsumptionForDate(Integer meter_id, LocalDate firstDate, LocalDate secondDate);
 
     // lab.6
     @Query(value = "SELECT mea.* FROM addresses ad "+

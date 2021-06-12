@@ -15,17 +15,23 @@ import java.util.List;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+
+    /*
     @ExceptionHandler({ConstraintViolationException.class})
+
     public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, WebRequest request){
-
         List<String> errors = new ArrayList<>();
-
         for (ConstraintViolation violation : ex.getConstraintViolations()){
             errors.add(violation.getRootBeanClass().getName() + " " + violation.getMessage());
         }
-
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
-
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getHttpStatus());
     }
+
+*/
+    @ExceptionHandler({ClientNotExists.class})
+    public ResponseEntity<ApiError> ClientNotExists(ClientNotExists ex, WebRequest request){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body( new ApiError(HttpStatus.NOT_FOUND,ex.getMessage()));
+    }
+
 }

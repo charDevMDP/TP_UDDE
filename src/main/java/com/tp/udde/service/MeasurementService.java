@@ -48,7 +48,7 @@ public class MeasurementService {
     }
 
     // lab.4
-    public Consumption getConsumption(Integer meter_id, Date firstDate, Date secondDate) {
+    public Consumption getConsumption(Integer meter_id, LocalDate firstDate, LocalDate secondDate) {
         return measurementRepository.getConsumptionForDate(meter_id,firstDate,secondDate);
     }
 

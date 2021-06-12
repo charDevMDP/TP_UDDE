@@ -2,6 +2,7 @@ package com.tp.udde.service;
 
 
 
+import com.tp.udde.exception.ClientNotExists;
 import com.tp.udde.exception.UserException;
 import com.tp.udde.domain.dto.MeterUserDto;
 import com.tp.udde.projections.MeterUser;
@@ -38,7 +39,7 @@ public class UserService {
         return Optional.ofNullable(user).orElseThrow(() -> new UserException("User not exists"));
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Integer id) throws ClientNotExists {
         userRepository.delete(getById(id));
     }
 
@@ -46,8 +47,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getById(Integer id) {
-        return userRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+    public User getById(Integer id) throws ClientNotExists {
+         Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            return user.get();
+        }else {
+            throw new ClientNotExists();
+        }
     }
 
     public User update(Integer id, User user) {

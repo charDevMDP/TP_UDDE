@@ -71,7 +71,7 @@ public class MeasurementController {
   */
 
     // lab.4 traigo consumo por rango por fechas (kwh y dinero en ese periodo)
-    public Consumption getConsumption(Integer meter_id, Date firstDate, Date secondDate){
+    public Consumption getConsumption(Integer meter_id, LocalDate firstDate, LocalDate secondDate){
         return measurementService.getConsumption(meter_id,firstDate,secondDate);
     }
 
