@@ -2,24 +2,41 @@ package com.tp.udde.controller;
 
 
 import com.tp.udde.domain.Measurement;
-import com.tp.udde.projections.Consumption;
+import com.tp.udde.domain.dto.MeasurementDto;
+import com.tp.udde.projections.UserMeasurementConsumption;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import com.tp.udde.projections.Consumption;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.*;
 import com.tp.udde.service.MeasurementService;
 
+@Slf4j
 @Controller
 public class MeasurementController {
 
     @Autowired
     MeasurementService measurementService;
+
+
+    public Measurement addMeasurement(MeasurementDto measurementDto) {
+        Measurement measurement = new Measurement();
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String dataTime = measurementDto.getDate().replaceAll("T"," ");
+        Date date = null;
+        try {
+            date = dt.parse(dataTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        measurement.setDate(date);
+        measurement.setKwh(measurementDto.getValue());
+        return measurementService.add(measurement);
+    }
     /*
     // agrego uno
     @PostMapping
@@ -63,5 +80,14 @@ public class MeasurementController {
         return measurementService.getMeasurementByDates(meter_id,firstDate,secondDate);
     }
 
+    // 6) Consulta de mediciones de un domicilio por rango de fechas
+    public List<Measurement> getMeasurementForDateForAddress(Integer idAddress, LocalDate firstDate, LocalDate secondDate){
+        return measurementService.getMeasurementForDateForAddress(idAddress,firstDate,secondDate);
+    }
+
+    // 5) Consulta 10 clientes más consumidores en un rango de fechas.
+    public List<UserMeasurementConsumption> getUserForDateForConsumption(LocalDate firstDate, LocalDate secondDate){
+        return measurementService.getUserForDateForConsumption(firstDate,secondDate);
+    }
 
 }

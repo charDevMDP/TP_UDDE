@@ -1,5 +1,6 @@
 package com.tp.udde.service;
 
+import com.tp.udde.projections.InvoiceOwedAddressClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -58,6 +59,11 @@ public class InvoiceService {
     // lab.3
     public List<Invoice> getInvoicesOwed(Integer userId){
         return invoiceRepository.getInvoicesOwed(userId);
+    }
+
+    // lab.4
+    public List<InvoiceOwedAddressClient> getInvoicesOwedClient(Integer userId){
+        return invoiceRepository.getInvoicesOwedClient(userId);
     }
 
 }

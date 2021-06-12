@@ -36,4 +36,4 @@ spring:
     activate:
       on-profile: devmysql
 server:
-  port: 8082
+  port: 8080

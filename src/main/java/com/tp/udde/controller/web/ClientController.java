@@ -16,8 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 
@@ -110,10 +110,10 @@ public class ClientController {
         if(user != null) {
             MeterUser meterUser = userController.meterofuser(id);
             Consumption consumption = measurementController.getConsumption(meterUser.getNumberMeter(), firstDate, secondDate);
-            if (consumption != null) {
+            if (consumption.getPriceTotal() != null || consumption.getTotalKwh() != null) {
                 return ResponseEntity.ok(consumption);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -122,11 +122,12 @@ public class ClientController {
 
     // lab.5 traigo las mediciones de entre fechas
     @PreAuthorize(value= "hasAuthority('BACKOFFICE') or authentication.principal.id.equals(#id)")
-    @GetMapping("/measurement/{id}")
+    @GetMapping("/measurements/{id}")
     public ResponseEntity<List<Measurement>> getMeasurementBetweenDates(
             @PathVariable Integer id,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate
+
     ) throws ClientNotExists {
         User user =  userController.getById(id);
         if(user != null) {
