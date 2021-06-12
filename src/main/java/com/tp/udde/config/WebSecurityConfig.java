@@ -20,8 +20,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/measurements").permitAll()
                 .antMatchers("/client/**").hasAnyAuthority("BACKOFFICE","CLIENT")
-                //.antMatchers("/client/**").permitAll()
+                .antMatchers("/backoffice/**").hasAuthority("BACKOFFICE")
                 .anyRequest().authenticated();
     }
 }
