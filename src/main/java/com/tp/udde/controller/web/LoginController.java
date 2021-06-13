@@ -51,10 +51,12 @@ public class LoginController {
         return ResponseEntity.ok(LoginResponseDto.builder().token(this.generateToken(dto)).build());
     }
 
+    /*
     @GetMapping(value = "api/userDetails")
     public ResponseEntity<User> userDetails(@RequestBody Authentication token) {
         return ResponseEntity.ok((User) token.getPrincipal());
     }
+    */
 
 
     public String generateToken(UserDto userDto) {

@@ -104,6 +104,8 @@
 						com.chardev.news.model-->
 						<exclude>**/*com/tp/udde/domain/**</exclude>
 						<exclude>**/*com/tp/udde/exceptions/**</exclude>
+						<exclude>**/*com/tp/udde/filter/**</exclude>
+						<exclude>**/*com/tp/udde/utils/**</exclude>
 					</excludes>
 				</configuration>
 
