@@ -104,8 +104,8 @@ public class BackOfficeController {
     }
 
     @PostMapping(value ="meter")
-    public Meter addMeasurer(@RequestBody Meter meters) {
-        return meterController.addMeasurer(meters);
+    public Meter addMeter(@RequestBody Meter meters) {
+        return meterController.addMeter(meters);
     }
 
     @PutMapping(value ="meter/{id}")
@@ -121,8 +121,8 @@ public class BackOfficeController {
 
     //MeterAndAddress**
     @PostMapping(value ="meter/address")
-    public Meter addMeasurerAddress(@RequestBody Meter meters) {
-        return meterController.addMeasurer(meters);
+    public Meter addMeterAddress(@RequestBody Meter meters) {
+        return meterController.addMeter(meters);
     }
     //**
 

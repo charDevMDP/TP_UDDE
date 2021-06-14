@@ -28,6 +28,14 @@ public class LoginControllerTest {
                 .build();
     }
 
+    private UserDto createUserBackofficeDto(){
+        return UserDto.builder()
+                .id(2)
+                .username("David")
+                .userType("BACKOFFICE")
+                .build();
+    }
+
     private LoginRequestDto loginRequestDto;
 
     UserController userController;
@@ -49,6 +57,19 @@ public class LoginControllerTest {
     public void clientLoginOK() throws ValidationException, InvalidLoginException, UserException {
         //given
         UserDto userDto = createUserDto();
+        when(userController.login(anyString(),anyString())).thenReturn(userDto);
+
+        //when
+        ResponseEntity<UserDto> response = loginController.login(loginRequestDto);
+
+        //then
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void clientLoginBackOfficeOK() throws ValidationException, InvalidLoginException, UserException {
+        //given
+        UserDto userDto = createUserBackofficeDto();
         when(userController.login(anyString(),anyString())).thenReturn(userDto);
 
         //when

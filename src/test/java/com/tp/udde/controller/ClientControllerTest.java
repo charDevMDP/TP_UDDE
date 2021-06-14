@@ -227,29 +227,9 @@ public class ClientControllerTest {
         assertEquals(meterUser.getNumberMeter(),responseEntity.getBody().getNumberMeter());
     }
 
+    // 2 test invoices por fechas
     @Test
-    public void getConsumptionTest() throws ClientNotExists {
-        //given
-        User user = createUser();
-        MeterUser meterUser = createMeterUser();
-        Consumption consumption = createConsumption();
-        LocalDate localDate = LocalDate.of(2020,05,9);
-        when(userController.getById(anyInt())).thenReturn(user);
-        when(userController.meterofuser(anyInt())).thenReturn(meterUser);
-        when(measurementService.getConsumption(anyInt(),any(LocalDate.class),any(LocalDate.class))).thenReturn(consumption);
-        when(measurementController.getConsumption(anyInt(),any(LocalDate.class),any(LocalDate.class))).thenReturn(consumption);
-
-        //when
-        ResponseEntity<Consumption> responseEntity = clientController.getConsumption(meterUser.getNumberMeter(),localDate,localDate);
-
-        //then
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(consumption.getTotalKwh(),responseEntity.getBody().getTotalKwh());
-    }
-
-
-    @Test
-    public void getInvoiceBetweenDatesTest() throws ClientNotExists, ParseException {
+    public void getInvoiceBetweenDatesOKTest() throws ClientNotExists, ParseException {
         //given
         LocalDate localDate = LocalDate.of(2020,05,9);
         Pageable pageable = PageRequest.of(1,10);
@@ -269,8 +249,53 @@ public class ClientControllerTest {
         assertEquals(PageInvoice.getContent(),response.getBody());
     }
 
+
+    // 3 test invoices adeudadas
     @Test
-    public void getMeasurmentsBetweenDatesTest() throws ClientNotExists {
+    public void getInvoicesOwedOKTest() throws ClientNotExists, ParseException {
+        //given
+        Pageable pageable = PageRequest.of(1,10);
+        Invoice invoice = createInvoice();
+        Page<Invoice> PageInvoice = new PageImpl(List.of(invoice));
+        User user = createUser();
+        when(userController.getById(1)).thenReturn(user);
+        when(invoiceService.getInvoicesOwed(eq(pageable),anyInt())).thenReturn(PageInvoice);
+        when(invoiceController.getInvoicesOwed(eq(pageable),anyInt())).thenReturn(PageInvoice);
+
+        //when
+        ResponseEntity<List<Invoice>> response = clientController.getInvoicesOwed(1,pageable);
+
+        //then
+        assertEquals(HttpStatus.OK.value(),response.getStatusCodeValue());
+        assertEquals(1, Objects.requireNonNull(response.getBody()).size());
+        assertEquals(PageInvoice.getContent(),response.getBody());
+    }
+
+    // 4 test consumos por fechas
+    @Test
+    public void getConsumptionOKTest() throws ClientNotExists {
+        //given
+        User user = createUser();
+        MeterUser meterUser = createMeterUser();
+        Consumption consumption = createConsumption();
+        LocalDate localDate = LocalDate.of(2020,05,9);
+        when(userController.getById(anyInt())).thenReturn(user);
+        when(userController.meterofuser(anyInt())).thenReturn(meterUser);
+        when(measurementService.getConsumption(anyInt(),any(LocalDate.class),any(LocalDate.class))).thenReturn(consumption);
+        when(measurementController.getConsumption(anyInt(),any(LocalDate.class),any(LocalDate.class))).thenReturn(consumption);
+
+        //when
+        ResponseEntity<Consumption> responseEntity = clientController.getConsumption(meterUser.getNumberMeter(),localDate,localDate);
+
+        //then
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(consumption.getTotalKwh(),responseEntity.getBody().getTotalKwh());
+    }
+
+
+    // 5 mediciones por fechas
+    @Test
+    public void getMeasurmentsBetweenDatesOKTest() throws ClientNotExists {
         //given
         LocalDate localDate = LocalDate.of(2021,06,12);
         Pageable pageable = PageRequest.of(1,10);
