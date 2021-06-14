@@ -11,4 +11,4 @@ SELECT consumer_kw, count(consumer_kw) as Cant_kw from vClientBetween vc where v
 
 SELECT vc.NameClient AS NameClient, vc.SurnameClient, vc.DateMeasurement, vc.MedidorNumber, vc.consumer_kw AS consumer_kw, vc.Price AS Price from vClientBetween vc where vc.id  = 1 group by consumer_kw order by vc.MedidorNumber desc limit 10;
 
-SELECT *  from vclientbetween vc where vc.id = 1 AND vc.DateMeasurement BETWEEN '2021-06-01' AND '2021-06-15';
+SELECT *  from vClientBetween vc where vc.id = 1 AND vc.DateMeasurement BETWEEN '2021-06-01' AND '2021-06-15';
