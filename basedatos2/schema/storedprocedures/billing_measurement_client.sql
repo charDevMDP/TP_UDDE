@@ -49,7 +49,7 @@ BEGIN
 		SET measurement_number = (measurement_number + 1);
 
             #Se updatea la medicion asignandole el id de la factura
-	        UPDATE measurements mea SET mea.invoiced = id_invoices
+	        UPDATE measurements mea SET mea.id_invoice = id_invoices
 	       	WHERE mea.id = id_measurements;
 
             FETCH cur_invoices INTO id_measurements, consumer_kw, cost_price;
