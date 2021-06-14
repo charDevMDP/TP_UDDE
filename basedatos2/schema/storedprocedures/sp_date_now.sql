@@ -1,5 +1,3 @@
-DROP PROCEDURE sp_due_date_now;
-
 DELIMITER //
 CREATE PROCEDURE sp_due_date_now (OUT datee DATETIME, OUT due_date DATE)
 BEGIN
