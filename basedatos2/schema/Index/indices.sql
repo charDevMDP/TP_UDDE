@@ -1,6 +1,6 @@
 //Creo el indice para recorrer las meters.
 CREATE INDEX idxMeterRate ON
-meters (number , id_rate) USING HASH;
+meters (number , id_address) USING HASH;
 
 //Para ver los índices que tiene esta tambal
 SHOW INDEX FROM meters
