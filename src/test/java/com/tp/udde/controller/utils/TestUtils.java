@@ -2,8 +2,12 @@ package com.tp.udde.controller.utils;
 
 import com.tp.udde.domain.*;
 import com.tp.udde.domain.enums.UserType;
+import com.tp.udde.projections.InvoiceOwedAddressClient;
+import com.tp.udde.projections.UserMeasurementConsumption;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class TestUtils {
@@ -141,6 +145,101 @@ public class TestUtils {
     }
 
 
+    public static InvoiceOwedAddressClient getInvoicesProjection(){
+        return new InvoiceOwedAddressClient() {
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public String getSurname() {
+                return null;
+            }
+
+            @Override
+            public String getDni() {
+                return null;
+            }
+
+            @Override
+            public String getNameAddress() {
+                return null;
+            }
+
+            @Override
+            public int getNumberAddress() {
+                return 0;
+            }
+
+            @Override
+            public int getDepartment() {
+                return 0;
+            }
+
+            @Override
+            public float getConsumerKw() {
+                return 0;
+            }
+
+            @Override
+            public int getNumberMeter() {
+                return 0;
+            }
+
+            @Override
+            public float getTotalPrice() {
+                return 0;
+            }
+        };
+    }
+
+    public static Measurement getMeasurement() {
+        return Measurement.builder()
+                .id(1)
+                .kwh(100F)
+                .build();
+    }
+
+    public static UserMeasurementConsumption getUserMeasurementConsumption() {
+        return new UserMeasurementConsumption() {
+            @Override
+            public int getId() {
+                return 0;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public String getSurname() {
+                return null;
+            }
+
+            @Override
+            public float getConsumption() {
+                return 0;
+            }
+
+            @Override
+            public String getNameAddress() {
+                return null;
+            }
+
+            @Override
+            public int getNumberAddress() {
+                return 0;
+            }
+
+            @Override
+            public int getDepartmentAddress() {
+                return 0;
+            }
+        };
+
+    }
 
 
 }

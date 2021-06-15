@@ -3,7 +3,6 @@ package com.tp.udde.service;
 import com.tp.udde.controller.utils.TestUtils;
 import com.tp.udde.domain.Model;
 import com.tp.udde.repository.ModelRepository;
-import com.tp.udde.service.ModelService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +27,6 @@ public class ModelServiceTest {
     public void setUp(){
         this.modelRepository = mock(ModelRepository.class);
         this.modelService = new ModelService(this.modelRepository);
-
     }
 
 
@@ -124,9 +122,6 @@ public class ModelServiceTest {
         Assertions.assertThrows(HttpClientErrorException.class, () -> {
             this.modelService.deleteById(1);
         });
-
-
-
 
     }
 
