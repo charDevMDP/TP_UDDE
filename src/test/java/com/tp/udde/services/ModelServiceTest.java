@@ -1,8 +1,9 @@
-package com.tp.udde.service;
+package com.tp.udde.services;
 
 import com.tp.udde.controller.utils.TestUtils;
 import com.tp.udde.domain.Model;
 import com.tp.udde.repository.ModelRepository;
+import com.tp.udde.service.ModelService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

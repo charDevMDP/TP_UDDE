@@ -1,6 +1,5 @@
-package com.tp.udde.controller.web;
+package com.tp.udde.controller;
 
-import com.tp.udde.controller.MetersForMeasurementController;
 import com.tp.udde.domain.*;
 import com.tp.udde.domain.enums.UserType;
 import com.tp.udde.service.MetersForMeasurementService;

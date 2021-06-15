@@ -1,7 +1,7 @@
-package com.tp.udde.controller;
+package com.tp.udde.controller.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tp.udde.controller.web.LoginController;
+import com.tp.udde.controller.UserController;
 import com.tp.udde.domain.dto.LoginRequestDto;
 import com.tp.udde.domain.dto.UserDto;
 import com.tp.udde.exception.InvalidLoginException;

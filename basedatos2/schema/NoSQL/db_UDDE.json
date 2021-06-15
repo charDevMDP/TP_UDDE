@@ -1,0 +1,162 @@
+
+/*
+Relaciones entre SQL y MongoDB (NOSQL)
+Database -> Database
+Collection -> Table
+Document -> Row
+Field -> Column
+Value -> Value
+*/
+
+use udde2; // creo la db
+
+db.users.insertOne( // creo cada coleccion a partir de un insert si antes no existia
+{
+  id: 1,
+  name: "David",
+  surname: "Navarro",
+  dni: "123123123",
+  password: "cabj",
+  userType: "CLIENT",
+  email: "loquequieras@gmail.com"
+        address: {
+            id:1,
+            name:"Rau",
+            number: 1234,
+            department: 1
+            city:{
+                id:1,
+                name: "Mar del Plata"
+                }
+            }
+})
+
+db.cities.insertOne({
+  id:1,
+  name: "Mar del Plata"
+})
+
+db.address.insertOne({
+  id:1,
+  name:"Rau",
+  number: 1234,
+  department: 1
+  city{
+    id:1,
+    name: "Mar del Plata"
+  }
+})
+
+db.meters.insertOne({
+  id:1,
+  number: 1234,
+  password: "1234",
+  address:{
+      id:1,
+      name:"Rau",
+      number: 1234,
+      department: 1
+      city{
+        id:1,
+        name: "Mar del Plata"
+      }
+  },
+  rate:{
+      id: 1,
+      type: "220w",
+      price: 20.5
+  }
+  model:{
+      id: 1,
+      name: "XDW",
+      type: "low"
+      brand:{
+          id: 1,
+          name: "TOSHIBA",
+          type: "naa"
+      }
+  }
+})
+
+db.rates.insertOne({
+  id: 1,
+  type: "220w",
+  price: 20.5
+})
+
+db.brands.insertOne({
+  id: 1,
+  name: "TOSHIBA",
+  type: "naa"
+})
+
+db.model.insertOne({
+  id: 1,
+  name: "XDW",
+  type: "low",
+  brand:{
+      id: 1,
+      name: "TOSHIBA",
+      type: "naa"
+  }
+})
+
+db.invoice.insertOne({
+  id: 1,
+  dateInitial: new Date(2001,11,1)
+  dateEnd: new Date(2001,11,1)
+  dateExpiration: new Date(2001,11,1)
+  consumerKw: 12.4
+  number: 123,
+  invoiceStatus: "OWED",
+  total: 500,
+  userId: 1,
+  meter:{
+    id:1,
+    number: 1234,
+    password: "1234",
+    address:{
+        id:1,
+        name:"Rau",
+        number: 1234,
+        department: 1
+        city{
+            id:1,
+            name: "Mar del Plata"
+        }
+    },
+    rate:{
+        id: 1,
+        type: "220w",
+        price: 20.5
+    }
+    model:{
+        id: 1,
+        name: "XDW",
+        type: "low"
+        brand:{
+            id: 1,
+            name: "TOSHIBA",
+            type: "naa"
+        }
+    }
+  }
+})
+
+db.measurement.insertOne({
+  id: 1,
+  date: new Date(2001,11,1),
+  invoiced: true,
+  id_invoice: 1,
+  kwh: 23.5
+})
+
+db.metersForMeasurement.insertOne({
+  measurement:{
+    id: 1,
+    date: new Date(2001,11,1),
+    invoiced: true,
+    id_invoice: 1,
+    kwh: 23.5
+  }
+})

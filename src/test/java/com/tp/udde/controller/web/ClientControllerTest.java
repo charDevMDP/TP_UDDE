@@ -1,5 +1,8 @@
-package com.tp.udde.controller;
+package com.tp.udde.controller.web;
 
+import com.tp.udde.controller.InvoiceController;
+import com.tp.udde.controller.MeasurementController;
+import com.tp.udde.controller.UserController;
 import com.tp.udde.controller.web.ClientController;
 import com.tp.udde.domain.*;
 import com.tp.udde.domain.dto.MeterUserDto;
