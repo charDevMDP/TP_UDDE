@@ -65,7 +65,7 @@ public class BackOfficeController {
 
     //Address**
     @GetMapping(value = "address")
-    public ResponseEntity<List<Address>> getAll(Pageable pageable){
+    public ResponseEntity<List<Address>> getAllAddress(Pageable pageable){
         Page<Address> address = this.addressController.getAll(pageable);
         return response(address); }
 

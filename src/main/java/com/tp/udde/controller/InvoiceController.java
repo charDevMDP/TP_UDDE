@@ -67,7 +67,6 @@ public class InvoiceController {
 
     // lab.3 traigo las facturas adeudadas
     public Page<Invoice> getInvoicesOwed(Pageable pageable, Integer userId){
-
         return  invoiceService.getInvoicesOwed(pageable,userId);
     }
 
