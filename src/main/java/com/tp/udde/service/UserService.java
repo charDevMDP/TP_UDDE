@@ -43,9 +43,7 @@ public class UserService {
         return Optional.ofNullable(user).orElseThrow(() -> new UserException("User not exists"));
     }
 
-    public void deleteById(Integer id) throws ClientNotExists {
-        userRepository.delete(getById(id));
-    }
+
 
     public User add(User user) {
         return userRepository.save(user);
@@ -60,6 +58,17 @@ public class UserService {
         }
     }
 
+    // meter of user
+    public MeterUser meterOfUser(Integer idUser){
+        return  userRepository.getMeterUser(idUser);
+    }
+
+  /*
+    public void deleteById(Integer id) throws ClientNotExists {
+        userRepository.delete(getById(id));
+    }
+
+
     public User update(Integer id, User user) {
         Optional<User> userFind = userRepository.findById(id);
         if (userFind.isPresent()) {
@@ -70,8 +79,7 @@ public class UserService {
         }
     }
 
-    // meter of user
-    public MeterUser meterOfUser(Integer idUser){
-        return  userRepository.getMeterUser(idUser);
-    }
+   */
+
+
 }

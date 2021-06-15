@@ -33,7 +33,7 @@ BEGIN
     #insertamos una nueva factura, solo con el dato del numero de medidor, fecha, y fecha de vencimiento.
    	CALL sp_due_date_now(@datee, @due_date) ;
 
-    INSERT INTO invoices (id_meters, date_invoice , date_initial, id_user) VALUES (id_meter, @datee, @due_date, id_user);
+    INSERT INTO invoices (id_meters, date_invoice , date_expiration, id_user) VALUES (id_meter, @datee, @due_date, id_user);
 
     #tomo el id de la factura
     SET id_invoices = LAST_INSERT_ID();

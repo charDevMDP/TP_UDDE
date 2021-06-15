@@ -165,8 +165,8 @@ values (10.4,"2021-04-30","2021-04-01","2020-05-01",1,"PAID",119,55.00,3);
 
 // mediciones
 
-INSERT Into measurements (date,id_invoice,kwh) values ('2020-05-01', 1,10);
-INSERT Into measurements (date,id_invoice,kwh) values ('2020-05-01', 1,20);
+INSERT Into measurements (date,id_invoice,kwh) values ('2021-06-15', 1,10);
+INSERT Into measurements (date,id_invoice,kwh) values ('2021-06-15', 1,20);
 
 
 // mediciones x medidores

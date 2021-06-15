@@ -28,8 +28,8 @@ public class Measurement {
     @Column(name = "id_invoice")
     private int idInvoice;
 
-    @Column(name = "invoice")
-    private float invoiced;
+    @Column(name = "invoiced", columnDefinition = "BOOLEAN default false'" )
+    private boolean invoiced;
 
     @Column(name = "kwh", nullable = false)
     private float kwh;
