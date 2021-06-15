@@ -1,9 +1,6 @@
 package com.tp.udde.controller.utils;
 
-import com.tp.udde.domain.Address;
-import com.tp.udde.domain.City;
-import com.tp.udde.domain.Rate;
-import com.tp.udde.domain.User;
+import com.tp.udde.domain.*;
 import com.tp.udde.domain.enums.UserType;
 
 import java.util.Arrays;
@@ -92,6 +89,57 @@ public class TestUtils {
     public static Address getAddress(){
         return getAddresses().get(1);
     }
+
+
+    public static List<Meter> getMeters(){
+        return Arrays.asList(
+                Meter.builder().id(1)
+                        .number(123)
+                        .password("1234")
+                        .build(),
+                Meter.builder().id(2)
+                        .number(1232)
+                        .password("123")
+                        .build()
+        );
+    }
+
+    public static Meter getMeter(){
+        return getMeters().get(1);
+    }
+
+    public static Model getModel(){
+        return getModels().get(0);
+    }
+
+    public static List<Model> getModels(){
+        return Arrays.asList(
+                Model.builder().id(1)
+                        .brand(getBrand())
+                        .name("modelName")
+                        .type("Abc")
+                        .type("type")
+                        .build(),
+                Model.builder().id(2)
+                        .brand(getBrand())
+                        .name("modelName2")
+                        .type("Abc2")
+                        .type("type2")
+                        .build()
+
+        );
+    }
+
+
+
+    public static Brand getBrand() {
+        return Brand.builder()
+                .id(1)
+                .name("brandName")
+                .type("type1")
+                .build();
+    }
+
 
 
 
