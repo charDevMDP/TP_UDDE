@@ -1,7 +1,9 @@
-package com.tp.udde.controller;
+package com.tp.udde.services;
 
+import com.tp.udde.controller.MeterController;
 import com.tp.udde.domain.*;
 import com.tp.udde.domain.enums.UserType;
+import com.tp.udde.repository.MeterRepository;
 import com.tp.udde.service.MetersService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,16 +11,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
 
 import java.util.List;
 
-public class MeterControllerTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+
+public class MeterServiceTest {
+
 
     private User createUser(){
         return User.builder()
@@ -87,14 +91,14 @@ public class MeterControllerTest {
                 .build();
     }
 
+    MeterRepository meterRepository;
     MetersService meterService;
 
-    MeterController meterController;
 
     @BeforeEach
     public void setUp(){
-        meterService = mock(MetersService.class);
-        meterController = new MeterController(meterService);
+        meterRepository = mock(MeterRepository.class);
+        meterService = new MetersService(meterRepository);
     }
 
 
@@ -104,21 +108,22 @@ public class MeterControllerTest {
         Pageable pageable = PageRequest.of(1,10);
         Page<Meter> PageMeter = new PageImpl(List.of(meter));
 
-        when(meterService.getAll(pageable)).thenReturn(PageMeter);
+        when(meterRepository.getMeters(pageable)).thenReturn(PageMeter);
 
-        Page<Meter> response =  meterController.getAllMeter(pageable);
+        Page<Meter> response =  meterService.getAll(pageable);
 
         assertEquals(response,PageMeter);
     }
+
 
 
     @Test
     public void getByIdOKTest(){
 
         Meter meter = createMeter();
-        when(meterService.getById(anyInt())).thenReturn(meter);
+        when(meterRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(meter));
 
-        Meter response = meterController.getByIdMeter(1);
+        Meter response = meterService.getById(1);
 
         assertEquals(meter,response);
 
@@ -127,21 +132,21 @@ public class MeterControllerTest {
     @Test
     public void addMeterOKTest(){
         Meter meter = createMeter();
-        when(meterService.add(meter)).thenReturn(meter);
+        when(meterRepository.save(meter)).thenReturn(meter);
 
-        Meter response = meterController.addMeter(meter);
+        Meter response = meterService.add(meter);
 
         assertEquals(meter,response);
 
     }
 
-
+/*
     @Test
     public void replaceMeterOKTest(){
         Meter meter = createMeter();
-        when(meterService.update(anyInt(),eq(meter))).thenReturn(meter);
+        when(meterRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(meter));
 
-        Meter response = meterController.replaceMeter(1,meter);
+        Meter response = meterService.update(1,meter);
 
         assertEquals(meter,response);
     }
@@ -150,19 +155,22 @@ public class MeterControllerTest {
 
     @Test
     public void deleteByIdOKTest(){
-        meterController.deleteByIdMeter(anyInt());
+        meterService.deleteById(anyInt());
 
-       verify(meterService,times(1)).deleteById(anyInt());
+        verify(meterRepository,times(1)).deleteById(1);
     }
+
+ */
 
     @Test
     public void getByMeterNumberAndPassOKTest(){
         Meter meter = createMeter();
-        when(meterService.getByMeterNumberAndPass(anyString(),anyString())).thenReturn(meter);
+        when(meterRepository.getByMeterNumberAndPass(anyString(),anyString())).thenReturn(meter);
 
-        Meter response = meterController.getByMeterNumberAndPass("123","123");
+        Meter response = meterService.getByMeterNumberAndPass("123","123");
 
         assertEquals(meter,response);
     }
+
 
 }

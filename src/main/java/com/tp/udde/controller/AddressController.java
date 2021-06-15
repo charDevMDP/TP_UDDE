@@ -19,6 +19,10 @@ public class AddressController {
     @Autowired
     AddressService addressService;
 
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
+    }
+
     // agrego uno
     @PostMapping
     public Address addAddress(@RequestBody Address address) {

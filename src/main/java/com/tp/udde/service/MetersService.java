@@ -20,6 +20,10 @@ public class MetersService {
     @Autowired
     private MeterRepository meterRepository;
 
+    public MetersService(MeterRepository meterRepository) {
+        this.meterRepository = meterRepository;
+    }
+
     public Page<Meter> getAll(Pageable pageable) {
         return meterRepository.getMeters(pageable);
     }

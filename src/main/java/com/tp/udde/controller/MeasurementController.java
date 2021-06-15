@@ -25,6 +25,10 @@ public class MeasurementController {
     @Autowired
     MeasurementService measurementService;
 
+    public MeasurementController(MeasurementService measurementService) {
+        this.measurementService = measurementService;
+    }
+
 
     public Measurement addMeasurement(MeasurementDto measurementDto) {
         Measurement measurement = new Measurement();

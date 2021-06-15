@@ -26,6 +26,10 @@ public class InvoiceService {
     @Autowired
     private InvoiceRepository invoiceRepository;
 
+    public InvoiceService(InvoiceRepository invoiceRepository) {
+        this.invoiceRepository = invoiceRepository;
+    }
+
     public List<Invoice> getAll() {
         List<Invoice> invoices = invoiceRepository.findAll();
         return invoices;

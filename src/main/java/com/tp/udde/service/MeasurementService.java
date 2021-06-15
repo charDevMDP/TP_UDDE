@@ -22,6 +22,10 @@ public class MeasurementService {
     @Autowired
     private MeasurementRepository measurementRepository;
 
+    public MeasurementService(MeasurementRepository measurementRepository) {
+        this.measurementRepository = measurementRepository;
+    }
+
     public List<Measurement> getAll() {
         List<Measurement> measurements = measurementRepository.findAll();
         return measurements;

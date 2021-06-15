@@ -20,6 +20,7 @@ public class CityService {
     @Autowired
     private CityRepository cityRepository;
 
+    /*
     public List<City> getAll() {
         List<City> citys = cityRepository.findAll();
         return citys;
@@ -46,4 +47,6 @@ public class CityService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+     */
 }
