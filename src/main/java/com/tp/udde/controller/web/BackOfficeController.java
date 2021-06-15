@@ -65,7 +65,7 @@ public class BackOfficeController {
 
     //Address**
     @GetMapping(value = "address")
-    public ResponseEntity<List<Address>> getAll(Pageable pageable){
+    public ResponseEntity<List<Address>> getAllAddress(Pageable pageable){
         Page<Address> address = this.addressController.getAll(pageable);
         return response(address); }
 
@@ -104,8 +104,8 @@ public class BackOfficeController {
     }
 
     @PostMapping(value ="meter")
-    public Meter addMeasurer(@RequestBody Meter meters) {
-        return meterController.addMeasurer(meters);
+    public Meter addMeter(@RequestBody Meter meters) {
+        return meterController.addMeter(meters);
     }
 
     @PutMapping(value ="meter/{id}")
@@ -121,18 +121,18 @@ public class BackOfficeController {
 
     //MeterAndAddress**
     @PostMapping(value ="meter/address")
-    public Meter addMeasurerAddress(@RequestBody Meter meters) {
-        return meterController.addMeasurer(meters);
+    public Meter addMeterAddress(@RequestBody Meter meters) {
+        return meterController.addMeter(meters);
     }
     //**
 
 
     // lab.4 traigo las facturas adeudadas por el cliente y el domicilio corespondiente.
     @GetMapping(value ="/client/invoices/{id}/owed")
-    public ResponseEntity<List<InvoiceOwedAddressClient>> getInvoicesOwed(@PathVariable Integer id){
-        List<InvoiceOwedAddressClient> invoiceOwedAddressClients =  this.invoiceController.getInvoicesOwedClient(id);
+    public ResponseEntity<List<InvoiceOwedAddressClient>> getInvoicesOwed(@PathVariable Integer id, Pageable pageable){
+        Page<InvoiceOwedAddressClient> invoiceOwedAddressClients =  this.invoiceController.getInvoicesOwedClient(pageable, id);
         if(invoiceOwedAddressClients!=null){
-            return ResponseEntity.ok(invoiceOwedAddressClients);
+            return response(invoiceOwedAddressClients);
         }else{
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
@@ -143,10 +143,12 @@ public class BackOfficeController {
     public ResponseEntity<List<Measurement>> getMeasurementForDateForAddress(
             @PathVariable Integer id,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate){
-        List<Measurement> measurements =  this.measurementController.getMeasurementForDateForAddress(id,firstDate,secondDate);
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate,
+            Pageable pageable
+            ){
+        Page<Measurement> measurements =  this.measurementController.getMeasurementForDateForAddress(pageable,id,firstDate,secondDate);
         if(measurements!=null){
-            return ResponseEntity.ok(measurements);
+            return response(measurements);
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -156,18 +158,15 @@ public class BackOfficeController {
     @GetMapping(value ="/measurements/consumptions/")
     public ResponseEntity<List<UserMeasurementConsumption>> getUserForDateForConsumption(
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate firstDate,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate){
-        List<UserMeasurementConsumption> userMeasurementConsumptions =  this.measurementController.getUserForDateForConsumption(firstDate,secondDate);
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate secondDate,
+            Pageable pageable
+        ){
+        Page<UserMeasurementConsumption> userMeasurementConsumptions =  this.measurementController.getUserForDateForConsumption(pageable,firstDate,secondDate);
         if(userMeasurementConsumptions!=null){
-            return ResponseEntity.ok(userMeasurementConsumptions);
+            return response(userMeasurementConsumptions);
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
-
-
-
-
 
 }

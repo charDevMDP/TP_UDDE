@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -50,20 +53,20 @@ public class InvoiceController {
 */
 
     // lab.2 traigo las facturas de entre fechas
-    public List<Invoice> getInvoiceBetweenDates(Integer meterId, LocalDate initialDate, LocalDate endDate){
-        return invoiceService.getInvoiceBetweenDates(meterId,initialDate,endDate);
+    public Page<Invoice> getInvoiceBetweenDates(Pageable pageable, Integer meterId, LocalDate initialDate, LocalDate endDate){
+        return invoiceService.getInvoiceBetweenDates(pageable,meterId,initialDate,endDate);
     }
 
 
     // lab.3 traigo las facturas adeudadas
-    public List<Invoice> getInvoicesOwed(Integer userId){
-        return  invoiceService.getInvoicesOwed(userId);
+    public Page<Invoice> getInvoicesOwed(Pageable pageable, Integer userId){
+        return  invoiceService.getInvoicesOwed(pageable,userId);
     }
 
     /* Backoffice **/
     // lab.4 traigo las facturas adeudadas por el cliente y el domicilio corespondiente.
-    public List<InvoiceOwedAddressClient> getInvoicesOwedClient(Integer userId){
-        return  invoiceService.getInvoicesOwedClient(userId);
+    public Page<InvoiceOwedAddressClient> getInvoicesOwedClient(Pageable pageable,Integer userId){
+        return  invoiceService.getInvoicesOwedClient(pageable, userId);
     }
 
 

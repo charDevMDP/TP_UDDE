@@ -80,6 +80,7 @@ CREATE TABLE invoices (
 CREATE TABLE measurements (
         id int UNSIGNED AUTO_INCREMENT,
         date datetime NOT NULL,
+        float invoiced DEFAULT 0,
         id_invoice int UNSIGNED,
         kwh float NOT NULL,
         CONSTRAINT pk_id_measurements PRIMARY KEY (id));

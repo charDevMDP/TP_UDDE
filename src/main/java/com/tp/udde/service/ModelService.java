@@ -17,8 +17,13 @@ import com.tp.udde.repository.ModelRepository;
 @Service
 public class ModelService {
 
-    @Autowired
+
     private ModelRepository modelRepository;
+
+    @Autowired
+    public ModelService(ModelRepository modelRepository) {
+       this.modelRepository = modelRepository;
+    }
 
     public List<Model> getAll() {
         List<Model> models = modelRepository.findAll();
