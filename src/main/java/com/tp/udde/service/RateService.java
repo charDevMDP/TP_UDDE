@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -17,8 +16,14 @@ import com.tp.udde.repository.RateRepository;
 @Service
 public class RateService {
 
-    @Autowired
+
     private RateRepository rateRepository;
+
+    @Autowired
+    public RateService(RateRepository rateRepository) {
+        this.rateRepository = rateRepository;
+    }
+
 
     public Page<Rate> getAll(Pageable pageable) {
         return rateRepository.getAll(pageable);
