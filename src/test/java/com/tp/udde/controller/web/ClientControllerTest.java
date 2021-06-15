@@ -152,6 +152,20 @@ public class ClientControllerTest {
         };
     }
 
+    private Consumption createConsumptionNull(){
+        return new Consumption() {
+            @Override
+            public Float getTotalKwh() {
+                return null;
+            }
+
+            @Override
+            public Float getPriceTotal() {
+                return null;
+            }
+        };
+    }
+
     private Measurement createMeasurement(){
         return Measurement.builder()
                 .id(1)
@@ -262,6 +276,41 @@ public class ClientControllerTest {
         assertEquals(PageInvoice.getContent(),response.getBody());
     }
 
+    // no facturas
+    @Test
+    public void getInvoiceBetweenDatesNOTFOUNDTest() throws ClientNotExists, ParseException {
+        //given
+        LocalDate localDate = LocalDate.of(2020,05,9);
+        Pageable pageable = PageRequest.of(1,10);
+        User user = createUser();
+        when(userController.getById(1)).thenReturn(user);
+        when(invoiceService.getInvoiceBetweenDates(eq(pageable),anyInt(),any(LocalDate.class),any(LocalDate.class))).thenReturn(null);
+        when(invoiceController.getInvoiceBetweenDates(eq(pageable),anyInt(),any(LocalDate.class),any(LocalDate.class))).thenReturn(null);
+
+        //when
+        ResponseEntity<List<Invoice>> response = clientController.getInvoiceBetweenDates(1,localDate,localDate,pageable);
+
+        //then
+        assertEquals(HttpStatus.NOT_FOUND.value(),response.getStatusCodeValue());
+
+    }
+
+    // no cliente
+    @Test
+    public void getInvoiceBetweenDatesNOTFOUNDCLIENTTest() throws ClientNotExists, ParseException {
+        //given
+        LocalDate localDate = LocalDate.of(2020,05,9);
+        Pageable pageable = PageRequest.of(1,10);
+        when(userController.getById(1)).thenReturn(null);
+
+        //when
+        ResponseEntity<List<Invoice>> response = clientController.getInvoiceBetweenDates(1,localDate,localDate,pageable);
+
+        //then
+        assertEquals(HttpStatus.NOT_FOUND.value(),response.getStatusCodeValue());
+    }
+
+
 
     // 3 test invoices adeudadas
     @Test
@@ -284,6 +333,40 @@ public class ClientControllerTest {
         assertEquals(PageInvoice.getContent(),response.getBody());
     }
 
+    // no facturas
+    @Test
+    public void getInvoicesOwedNOTFOUNDTest() throws ClientNotExists, ParseException {
+        //given
+        Pageable pageable = PageRequest.of(1,10);
+        User user = createUser();
+        when(userController.getById(1)).thenReturn(user);
+        when(invoiceService.getInvoicesOwed(eq(pageable),anyInt())).thenReturn(null);
+        when(invoiceController.getInvoicesOwed(eq(pageable),anyInt())).thenReturn(null);
+
+        //when
+        ResponseEntity<List<Invoice>> response = clientController.getInvoicesOwed(1,pageable);
+
+        //then
+        assertEquals(HttpStatus.NOT_FOUND.value(),response.getStatusCodeValue());
+
+    }
+
+    // no clientes
+    @Test
+    public void getInvoicesOwedNOTFOUNDCLIENTTest() throws ClientNotExists, ParseException {
+        //given
+        Pageable pageable = PageRequest.of(1,10);
+        when(userController.getById(1)).thenReturn(null);
+
+        //when
+        ResponseEntity<List<Invoice>> response = clientController.getInvoicesOwed(1,pageable);
+
+        //then
+        assertEquals(HttpStatus.NOT_FOUND.value(),response.getStatusCodeValue());
+    }
+
+
+
     // 4 test consumos por fechas
     @Test
     public void getConsumptionOKTest() throws ClientNotExists {
@@ -303,6 +386,41 @@ public class ClientControllerTest {
         //then
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(consumption.getTotalKwh(),responseEntity.getBody().getTotalKwh());
+    }
+
+    // sin consumos
+    @Test
+    public void getConsumptionNOTCONTENTTest() throws ClientNotExists {
+        //given
+        User user = createUser();
+        MeterUser meterUser = createMeterUser();
+        Consumption consumption = createConsumptionNull();
+        LocalDate localDate = LocalDate.of(2020,05,9);
+        when(userController.getById(anyInt())).thenReturn(user);
+        when(userController.meterofuser(anyInt())).thenReturn(meterUser);
+        when(measurementService.getConsumption(anyInt(),any(LocalDate.class),any(LocalDate.class))).thenReturn(consumption);
+        when(measurementController.getConsumption(anyInt(),any(LocalDate.class),any(LocalDate.class))).thenReturn(consumption);
+
+        //when
+        ResponseEntity<Consumption> responseEntity = clientController.getConsumption(meterUser.getNumberMeter(),localDate,localDate);
+
+        //then
+        assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
+    }
+
+    // no cliente
+    @Test
+    public void getConsumptionNOTFOUNDCLIENTTest() throws ClientNotExists {
+        //given
+        MeterUser meterUser = createMeterUser();
+        LocalDate localDate = LocalDate.of(2020,05,9);
+        when(userController.getById(anyInt())).thenReturn(null);
+
+        //when
+        ResponseEntity<Consumption> responseEntity = clientController.getConsumption(meterUser.getNumberMeter(),localDate,localDate);
+
+        //then
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
 
 
@@ -330,5 +448,39 @@ public class ClientControllerTest {
         assertEquals(PageMeasurement.getContent(),response.getBody());
     }
 
+
+    // sin mediciones
+    @Test
+    public void getMeasurmentsBetweenDatesNOTFOUNDTest() throws ClientNotExists {
+        //given
+        LocalDate localDate = LocalDate.of(2021,06,12);
+        Pageable pageable = PageRequest.of(1,10);
+        MeterUser meterUser = createMeterUser();
+        User user = createUser();
+        when(userController.getById(anyInt())).thenReturn(user);
+        when(userController.meterofuser(anyInt())).thenReturn(meterUser);
+        when(measurementService.getMeasurementByDates(eq(pageable),anyInt(),any(LocalDate.class),any(LocalDate.class))).thenReturn(null);
+        when(measurementController.getMeasurementBetweenDates(eq(pageable),anyInt(),any(LocalDate.class),any(LocalDate.class))).thenReturn(null);
+
+        //when
+        ResponseEntity<List<Measurement>> response = clientController.getMeasurementBetweenDates(1,localDate,localDate,pageable);
+
+        //then
+        assertEquals(HttpStatus.NOT_FOUND.value(),response.getStatusCodeValue());
+    }
+
+    @Test
+    public void getMeasurmentsBetweenDatesNOTFOUNDTCLIENTest() throws ClientNotExists {
+        //given
+        LocalDate localDate = LocalDate.of(2021,06,12);
+        Pageable pageable = PageRequest.of(1,10);
+        when(userController.getById(anyInt())).thenReturn(null);
+
+        //when
+        ResponseEntity<List<Measurement>> response = clientController.getMeasurementBetweenDates(1,localDate,localDate,pageable);
+
+        //then
+        assertEquals(HttpStatus.NOT_FOUND.value(),response.getStatusCodeValue());
+    }
 
 }

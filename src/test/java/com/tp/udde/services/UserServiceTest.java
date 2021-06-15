@@ -11,6 +11,7 @@ import com.tp.udde.exception.ValidationException;
 import com.tp.udde.projections.MeterUser;
 import com.tp.udde.repository.UserRepository;
 import com.tp.udde.service.UserService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -18,11 +19,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -87,6 +91,15 @@ public class UserServiceTest {
         User response = userService.getById(1);
 
         assertEquals(user,response);
+    }
+
+
+    @Test
+    public void getByIdTHROWTest() throws ClientNotExists {
+
+        when(userRepository.findById(anyInt())).thenReturn(Optional.empty());
+        assertThrows(ClientNotExists.class, () -> { userService.getById(1);});
+
     }
 
 

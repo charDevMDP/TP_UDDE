@@ -236,6 +236,18 @@ public class BackOfficeControllerTest {
         assertEquals(1, Objects.requireNonNull(response.getBody()).size());
     }
 
+    @Test
+    public void getMeasurementForDateForAddressNOTFOUNDTest(){
+        LocalDate localDate = LocalDate.of(2021,06,15);
+        LocalDate localDateEnd = LocalDate.of(2021,06,01);
+        Pageable pageable = PageRequest.of(0,10);
+        when(measurementController.getMeasurementForDateForAddress(pageable,1,localDate,localDateEnd)).thenReturn(null);
+
+        ResponseEntity<List<Measurement>> response = backOfficeController.getMeasurementForDateForAddress(1,localDate,localDateEnd,pageable);
+
+        assertEquals(HttpStatus.NOT_FOUND.value(),response.getStatusCodeValue());
+    }
+
 
     @Test
     public void getTestUserForDateForConsumption(){
@@ -248,6 +260,19 @@ public class BackOfficeControllerTest {
         ResponseEntity<List<UserMeasurementConsumption>> response = backOfficeController.getUserForDateForConsumption(localDate,localDateEnd,pageable);
         assertEquals(HttpStatus.OK.value(),response.getStatusCodeValue());
         assertEquals(1, Objects.requireNonNull(response.getBody()).size());
+    }
+
+
+    @Test
+    public void getUserForDateForConsumptionNOTFOUNDTest(){
+        LocalDate localDate = LocalDate.of(2021,06,15);
+        LocalDate localDateEnd = LocalDate.of(2021,06,01);
+        Pageable pageable = PageRequest.of(0,10);
+        when(measurementController.getUserForDateForConsumption(pageable,localDate,localDateEnd)).thenReturn(null);
+
+        ResponseEntity<List<UserMeasurementConsumption>> response = backOfficeController.getUserForDateForConsumption(localDate,localDateEnd,pageable);
+
+        assertEquals(HttpStatus.NOT_FOUND.value(),response.getStatusCodeValue());
     }
 
 

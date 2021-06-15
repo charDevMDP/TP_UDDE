@@ -30,6 +30,7 @@ public class InvoiceService {
         this.invoiceRepository = invoiceRepository;
     }
 
+    /*
     public List<Invoice> getAll() {
         List<Invoice> invoices = invoiceRepository.findAll();
         return invoices;
@@ -56,6 +57,8 @@ public class InvoiceService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+     */
 
     // lab.2
     public Page<Invoice> getInvoiceBetweenDates(Pageable pageable,Integer userId, LocalDate startDate, LocalDate endDate){

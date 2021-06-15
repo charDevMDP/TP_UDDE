@@ -43,6 +43,7 @@ public class MeasurementService {
         return measurementRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
     }
 
+    /*
     public Measurement update(Integer id, Measurement measurement) {
         Optional<Measurement> measurementFind = measurementRepository.findById(id);
         if (measurementFind.isPresent()) {
@@ -52,6 +53,8 @@ public class MeasurementService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+     */
 
     // lab.4
     public Consumption getConsumption(Integer meter_id, LocalDate firstDate, LocalDate secondDate) {
