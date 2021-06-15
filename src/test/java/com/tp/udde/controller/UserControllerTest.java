@@ -23,6 +23,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -89,6 +90,14 @@ public class UserControllerTest {
     }
 
     @Test
+    public void getByIdTHROWTest() throws ClientNotExists {
+
+        when(userService.getById(anyInt())).thenThrow(new ClientNotExists());
+
+        assertThrows(ClientNotExists.class, () -> { userController.getById(1); });
+    }
+
+    @Test
     public void getAllOkTest(){
 
         User user = createUser();
@@ -125,6 +134,14 @@ public class UserControllerTest {
 
     }
 
+    @Test
+    public void LoginTHROWTest() throws UserException, ValidationException, InvalidLoginException {
+
+        when(userService.login(anyString(),anyString())).thenThrow(new UserException());
+
+        assertThrows(UserException.class, () -> { userController.login(anyString(),anyString());});
+
+    }
 
 
 }

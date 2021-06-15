@@ -228,6 +228,15 @@ public class ClientControllerTest {
         assertEquals(meterUser.getNumberMeter(),responseEntity.getBody().getNumberMeter());
     }
 
+    @Test
+    public void getMeterUserErrorTest(){
+        when(userController.meterofuser(anyInt())).thenReturn(null);
+
+        ResponseEntity<MeterUser> responseEntity = clientController.meterUser(1);
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+    }
+
     // 2 test invoices por fechas
     @Test
     public void getInvoiceBetweenDatesOKTest() throws ClientNotExists, ParseException {

@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
@@ -94,11 +95,12 @@ public class AddressServiceTest {
         assertEquals(response,PageAddress);
     }
 
-    /*
+
     @Test
     public void updateAddressOKTest(){
         Address address = createAddress();
-        when(addressRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(address));
+        when(addressRepository.findById(anyInt())).thenReturn(Optional.of(address));
+        when(addressRepository.save(address)).thenReturn(address);
 
         Address response = addressService.update(1,address);
 
@@ -106,17 +108,18 @@ public class AddressServiceTest {
     }
 
 
-
-
     @Test
     public void deleteByIdOKTest(){
-        doNothing().when(addressRepository).deleteById(anyInt());
+        Address address = createAddress();
+        when(addressRepository.findById(anyInt())).thenReturn(Optional.of(address));
+        doNothing().when(addressRepository).delete(address);
+
         addressService.deleteById(anyInt());
 
-        verify(addressRepository,times(1)).deleteById(anyInt());
+        verify(addressRepository,times(1)).delete(any());
 
     }
-     */
+
 
 
 

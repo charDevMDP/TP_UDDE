@@ -89,7 +89,7 @@ public class UserServiceTest {
         assertEquals(user,response);
     }
 
-    /*
+
     @Test
     public void getAllOkTest(){
 
@@ -97,14 +97,13 @@ public class UserServiceTest {
         Pageable pageable = PageRequest.of(1,10);
         Page<User> PageUser = new PageImpl(List.of(user));
 
-        when(userRepository.findAll(pageable)).thenReturn(PageUser);
+        when(userRepository.getUsers(pageable)).thenReturn(PageUser);
 
         Page<User> response =  userService.getAll(pageable);
 
         assertEquals(response,PageUser);
     }
 
-     */
 
     @Test
     public void meterOfUserOKTest(){
