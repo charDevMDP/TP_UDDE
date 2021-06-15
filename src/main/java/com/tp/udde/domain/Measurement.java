@@ -28,6 +28,9 @@ public class Measurement {
     @Column(name = "id_invoice")
     private int idInvoice;
 
+    @Column(name = "invoice")
+    private float invoiced;
+
     @Column(name = "kwh", nullable = false)
     private float kwh;
 
