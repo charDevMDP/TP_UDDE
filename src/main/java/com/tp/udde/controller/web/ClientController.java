@@ -89,7 +89,7 @@ public class ClientController {
     @GetMapping("/invoices/{id}/owed")
     public ResponseEntity<List<Invoice>> getInvoicesOwed( @PathVariable Integer id,Pageable pageable) throws ClientNotExists {
         User user =  userController.getById(id);
-        if(user != null){
+
             Page<Invoice> invoices =  invoiceController.getInvoicesOwed(pageable,id);
             if(invoices!=null){
                 if(invoices.isEmpty()){  return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); }
@@ -97,9 +97,7 @@ public class ClientController {
             }else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+
     }
 
 

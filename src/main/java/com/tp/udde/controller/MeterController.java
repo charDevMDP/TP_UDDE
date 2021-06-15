@@ -16,6 +16,10 @@ public class MeterController {
     @Autowired
     private MetersService metersService;
 
+    public MeterController(MetersService meterService) {
+        this.metersService = meterService;
+    }
+
     // traigo todos
     public Page<Meter> getAllMeter(Pageable pageable) {
         return metersService.getAll(pageable);
@@ -27,7 +31,7 @@ public class MeterController {
     }
 
     // agrego uno
-    public Meter addMeasurer(Meter meters) {
+    public Meter addMeter(Meter meters) {
         return metersService.add(meters);
     }
 

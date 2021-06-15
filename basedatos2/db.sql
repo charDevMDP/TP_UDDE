@@ -69,6 +69,7 @@ CREATE TABLE invoices (
         date_end datetime NOT NULL,
         date_initial datetime NOT NULL,
         date_invoice datetime NOT NULL,
+        date_expiration datetime,
         invoice_status varchar(20) DEFAULT 'OWED',
         number int UNSIGNED,
         total float NOT NULL,
@@ -79,6 +80,7 @@ CREATE TABLE invoices (
 CREATE TABLE measurements (
         id int UNSIGNED AUTO_INCREMENT,
         date datetime NOT NULL,
+        float invoiced DEFAULT 0,
         id_invoice int UNSIGNED,
         kwh float NOT NULL,
         CONSTRAINT pk_id_measurements PRIMARY KEY (id));
@@ -135,15 +137,15 @@ INSERT Into meters (number,password,id_address,id_model,id_rate) values (121,"12
 
 INSERT INTO invoices
 (consumer_kw,date_end,date_initial,date_invoice,id_user,invoice_status,`number`,total,id_meters)
-values (20.5,"2020-05-31","2020-05-01","2020-06-01",1,"OWED",123,500.00,1);
+values (20.5,"2020-05-31","2020-05-01","2020-06-01",1,"OWED",123,500.00,2);
 
 INSERT INTO invoices
 (consumer_kw,date_end,date_initial,date_invoice,id_user,invoice_status,`number`,total,id_meters)
-values (50.8,"2020-06-30","2020-06-01","2020-07-01",1,"OWED",124,800.00,1);
+values (50.8,"2020-06-30","2020-06-01","2020-07-01",1,"OWED",124,800.00,2);
 
 INSERT INTO invoices
 (consumer_kw,date_end,date_initial,date_invoice,id_user,invoice_status,`number`,total,id_meters)
-values (20.8,"2020-04-30","2020-04-01","2020-06-01",1,"PAID",122,550.00,1);
+values (20.8,"2020-04-30","2020-04-01","2020-06-01",1,"PAID",122,550.00,2);
 
 
 // facturas usuario 4 medidor 3

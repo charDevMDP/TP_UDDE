@@ -1,6 +1,8 @@
 package com.tp.udde.controller;
 
-import com.tp.udde.domain.Invoice;
+import com.tp.udde.domain.*;
+import com.tp.udde.domain.enums.InvoiceStatus;
+import com.tp.udde.domain.enums.UserType;
 import com.tp.udde.projections.InvoiceOwedAddressClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
@@ -20,6 +22,11 @@ public class InvoiceController {
 
     @Autowired
     InvoiceService invoiceService;
+
+    public InvoiceController(InvoiceService invoiceService) {
+        this.invoiceService = invoiceService;
+    }
+
     /*
     // agrego uno
     @PostMapping
@@ -60,7 +67,6 @@ public class InvoiceController {
 
     // lab.3 traigo las facturas adeudadas
     public Page<Invoice> getInvoicesOwed(Pageable pageable, Integer userId){
-
         return  invoiceService.getInvoicesOwed(pageable,userId);
     }
 

@@ -11,6 +11,10 @@ public class MetersForMeasurementService {
     @Autowired
     private MetersForMeasurementRepository metersForMeasurementRepository;
 
+    public MetersForMeasurementService(MetersForMeasurementRepository metersForMeasurementRepository) {
+        this.metersForMeasurementRepository = metersForMeasurementRepository;
+    }
+
 
     public MetersForMeasurement add(MetersForMeasurement measurement) {
         return this.metersForMeasurementRepository.save(measurement);

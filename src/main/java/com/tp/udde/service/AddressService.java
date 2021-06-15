@@ -20,6 +20,10 @@ public class AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
+    public AddressService(AddressRepository addressRepository) {
+        this.addressRepository = addressRepository;
+    }
+
     public Page<Address> getAll(Pageable pageable) {
       return addressRepository.getAll(pageable);
     }

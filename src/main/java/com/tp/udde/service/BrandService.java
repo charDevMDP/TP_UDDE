@@ -18,6 +18,7 @@ public class BrandService {
     @Autowired
     private BrandRepository brandRepository;
 
+    /*
     public List<Brand> getAll() {
         List<Brand> brands = brandRepository.findAll();
         return brands;
@@ -44,4 +45,6 @@ public class BrandService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+     */
 }

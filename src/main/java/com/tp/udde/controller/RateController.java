@@ -19,6 +19,10 @@ public class RateController {
     @Autowired
     private RateService rateService;
 
+    public RateController(RateService rateService) {
+        this.rateService = rateService;
+    }
+
     // traigo todos
     public Page<Rate> getRates(Pageable pageable) { return this.rateService.getAll(pageable);}
 

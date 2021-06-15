@@ -41,6 +41,9 @@ public class Invoice {
     @Column(name = "date_end", nullable = false)
     private Date dateEnd;
 
+    @Column(name = "date_expiration", nullable = false)
+    private Date dateExpiration;
+
     @Column(name = "consumer_kw", nullable = false)
     private float consumerKw;
 
