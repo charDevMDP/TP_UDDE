@@ -53,6 +53,7 @@ public class TestUtils {
         );
     }
 
+    public static Rate getRate(){ return getRates().get(1); }
 
     public static List<City> getCity(){
         return Arrays.asList(
@@ -76,17 +77,13 @@ public class TestUtils {
     public static List<Address> getAddresses(){
         return Arrays.asList(
                 Address.builder().id(1)
-                        .city(geCityId(1))
                         .name("Padre")
                         .department(1)
-                        .user(getUserId(1))
                         .number(1533)
                         .build(),
                 Address.builder().id(2)
-                        .city(geCityId(2))
                         .name("Padre")
                         .department(2)
-                        .user(getUserId(2))
                         .number(5555)
                         .build()
         );
